@@ -1,6 +1,6 @@
 # User Stories
 
-1. As a customer, I want to  be able to view the menu because I want to see the selection with pictures and price.
+1. As a customer, I want to be able to view the menu because I want to see the selection with pictures and price.
 
 - Given that I am a hungry cutomer, when I open the website of your restaurant, I want to see a list of foods with name, picture, price, description, and an 'Add to order' button.
 
@@ -18,7 +18,7 @@
 
 5. As a restaurant, I want to see incoming & past orders because I want to know what do I need to cook.
 
--  I  want to have a page that will display the order details, and will separate current (pending/accepted) orders from past (completed/cancelled) orders.
+- I want to have a page that will display the order details, and will separate current (pending/accepted) orders from past (completed/cancelled) orders.
 
 6. As a restaurant, I want to be able to update order status because I want the customer to know whether the order was accepted or not, or how long the wait would be (pickup ETA) and it should be done by SMS.
 
@@ -28,6 +28,5 @@
 
 - When a new order is placed, I should be receiving an SMS message, along with a non-disruptive visual notification in the app, as well as the order should appear highlighted in the order list. In addition, the app should provide an alert sound when the new order arrives.
 
-
-
- - Shuchita made a change
+* Shuchita made a change
+* Joe made a change
