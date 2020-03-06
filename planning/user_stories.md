@@ -13,6 +13,7 @@
 - Given that I have added the items that I want into my "shopping cart" I want to be able to click "Place Order" button, which will send my order to the restaurant. I want to see a notification from the app that the order has been placed.
 
 4. As a customer, I want to be able to receive notifications from the app because I want to know when my order is accepted and when it is ready.
+
 - Considering that I placed an order, I would like to receive a SMS and app notification from the restaurant when the order has been accepted (or cancelled) and how long the wait is going to be. I would also like to be informed when the order has been completed (by SMS & app).
 
 5. As a restaurant, I want to see incoming & past orders because I want to know what do I need to cook.
