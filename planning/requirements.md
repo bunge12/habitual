@@ -2,7 +2,7 @@
 - Adding and removing items from the menu
 - Have Notifications (SMS core)
 - Order tracking (minutes)
-- Change order status
+- Change order status (Placed, Accepted, Completed)
 - Seeing current/pending orders
 
 ## Stretch
