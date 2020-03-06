@@ -1,14 +1,17 @@
 ## Core
 - Adding and removing items from the menu
-- Have Notifications
+- Have Notifications (SMS core)
 - Order tracking (minutes)
 - Change order status
+- Seeing current/pending orders
 
 ## Stretch
 - Login & register
+- Have Notifications (browser, email)
 - Timer with countdown
 - Dummy pay page
 - Order feedback
+- Order history for customers
 
 ## Description from Compass
  - A food ordering experience for a single restaurant. 
