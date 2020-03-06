@@ -27,6 +27,3 @@
 7. As a restaurant, I want to be visually & audibly notified about a new incoming order because I don't want miss any orders and I don't want to keep my customers waiting.
 
 - When a new order is placed, I should be receiving an SMS message, along with a non-disruptive visual notification in the app, as well as the order should appear highlighted in the order list. In addition, the app should provide an alert sound when the new order arrives.
-
-* Shuchita made a change
-* Joe made a change
