@@ -8,7 +8,7 @@
 ## Stretch
 - Login & register
 - Have Notifications (browser, email)
-- Timer with countdown
+- Timer with countdown (Ready in  ... mins / Ready at 2:15PM)
 - Dummy pay page
 - Order feedback
 - Order history for customers
