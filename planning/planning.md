@@ -2,7 +2,7 @@
 * [Heroku](https://www.heroku.com/)
 
 ## ERD
-![ERD for Habitual]()
+![ERD for Habitual](https://github.com/bunge12/habitual/blob/master/docs/ERD%20Habitual.png?raw=true)
 
 ## Routes
 
