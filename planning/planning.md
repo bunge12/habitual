@@ -6,4 +6,12 @@
 
 ## Routes
 
+* GET /order -> displays menu items, builds cart
+* POST /order -> create order
+
+* GET /orders -> lists all orders
+* POST /orders/:id -> update status/wait time
+
 ## Wireframe/Storyboarding
+
+* [Wireframe](https://drive.google.com/file/d/1yop3T9ZhluMVhM2JMIy0tFMfAyAyKagt/view?usp=sharing)
