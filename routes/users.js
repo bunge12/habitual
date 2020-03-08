@@ -7,9 +7,13 @@
 
 const express = require("express");
 const router = express.Router();
+const path = require("path");
 
 module.exports = db => {
   router.get("/", (req, res) => {
+    //! example page
+    res.sendFile("menu1.html", { root: path.join(__dirname, "../views") });
+
     db.query(`SELECT * FROM users;`)
       .then(data => {
         const users = data.rows;

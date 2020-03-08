@@ -10,9 +10,15 @@ const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require("twilio")(accountSid, authToken);
+const path = require("path");
 
 module.exports = db => {
   router.get("/", (req, res) => {
+    //! example page
+    res.sendFile("orders2.html", {
+      root: path.join(__dirname, "../views")
+    });
+
     let query = `SELECT * FROM widgets`;
     console.log(query);
     db.query(query)
