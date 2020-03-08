@@ -36,12 +36,12 @@ module.exports = db => {
   });
 
   // place the order
-  //! need the addNewOrder(id, limit) from db
+  //! need the addNewOrder(user_id) from db
   //! should return the status of new order to change the status of place-order-btn
   router.post("/:id/order", (req, res) => {
     // user id
     const id = req.session["user_id"] || req.params.id;
-    db.addNewOrder(id, 20)
+    db.addNewOrder(id)
       .then(response => res.send(response))
       .catch(e => {
         console.error(e);

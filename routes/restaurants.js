@@ -7,6 +7,9 @@
 
 const express = require("express");
 const router = express.Router();
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const twilioClient = require("twilio")(accountSid, authToken);
 
 module.exports = db => {
   router.get("/", (req, res) => {
@@ -38,23 +41,35 @@ module.exports = db => {
 
   // place the order
   //! need the changeOrderStatus(orderId, status[,waitTime]) from db, should receive 2 or 3 params
-  //! should return the status of new order to change the status
-  //! not completed!!!!
+  //! should return an object {user_name, user_phone}
   router.put("/:id/orders/:orderid", (req, res) => {
     const orderId = req.params.orderid;
     const { status, waitTime } = req.body;
     db.changeOrderStatus(orderId, status, waitTime)
-      .then(response => res.send(response))
+      .then(response => {
+        const { name, phone } = response;
+        if (status === "accepted") {
+          // message says wait time
+          twilioClient.messages.create({
+            to: phone,
+            from: process.env.TWILIO_PHONE_NUM,
+            body: `Hello ${name}, your order ID:${orderId} will be ready in ${waitTime} minutes!`
+          });
+        }
+        if (status === "canceled") {
+          // message says canceled
+          twilioClient.messages.create({
+            to: phone,
+            from: process.env.TWILIO_PHONE_NUM,
+            body: `Hello ${name}, your order ID:${orderId} has been canceled by the restaurant, sorry for the inconvenience.`
+          });
+        }
+        return res.send(response);
+      })
       .catch(e => {
         console.error(e);
         res.send(e);
       });
-    if (status === "accepted") {
-      // message says wait time
-    }
-    if (status === "canceled") {
-      // message says canceled
-    }
   });
 
   return router;
