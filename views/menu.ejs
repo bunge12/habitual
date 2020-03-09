@@ -9,8 +9,23 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
-
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
 </head>
+
+<script>
+  $(document).ready(function () {
+    $('.cart').click(function (event) {
+      let res = $(this).val().split(",")
+      let row = `<tr><td>${res[1]}</td><td>1</td><td>$${res[2] / 100}</td></tr>`;
+      $(".item_list").append(row);
+      let currentTotal = $("#cart_total").html();
+      let newTotal = Number(currentTotal) + (res[2] / 100);
+      $("#cart_total").html(newTotal);
+    })
+  })
+</script>
+
 
 <body>
   <nav class="navbar navbar-dark sticky-top" style="background-color: #07a7c4">
@@ -34,7 +49,7 @@
         </div>
         <div class="card-footer text-right">
           <span class="align-middle">$<%= item.price/100 %></span>
-          <a href="#" class="btn btn-primary">Order</a>
+          <button value="<%= item.id %>,<%= item.name %>,<%= item.price %>" class="btn btn-primary cart">Order</a>
         </div>
       </div>
       <% } %>
@@ -43,21 +58,22 @@
 
     <div class="container fixed-bottom">
       <div class="row">
-        <div class='col-8'></div>
+
 
         <div class="col-4 align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0">
           <header style="background-color: #07a7c4" class='p-2 text-white rounded-top'>
             <strong>Your order details:</strong>
           </header>
           <section class="mt-2">
-            <ul>
-              <li>Burger</li>
-              <li>Vodka</li>
-              <li>Fries</li>
-            </ul>
+            <table class="table table-sm table-striped">
+              <tbody class="item_list">
+              </tbody>
+
+            </table>
           </section>
           <footer class='text-center d-flex mb-2 justify-content-center'>
-            <button type="button" class="btn btn-primary btn-sm btn-block w-75">Place Order | $39.99</button>
+            <button type="button" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
+                id="cart_total"></button>
           </footer>
 
 
@@ -69,9 +85,6 @@
   <script type="text/javascript" src="/scripts/app.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
     integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
