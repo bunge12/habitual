@@ -17,7 +17,10 @@ const getAllItems = function(limit = 10) {
   `,
       values
     )
-    .then(res => res.rows);
+    .then(res => {
+      const arr = res.rows;
+      return { arr };
+    });
 };
 exports.getAllItems = getAllItems;
 
