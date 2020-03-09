@@ -24,13 +24,12 @@ const getAllItems = function(limit = 10) {
 };
 exports.getAllItems = getAllItems;
 
-const getCompletedOrders = function() {
+const getAllOrders = function() {
   return db
     .query(
       `
   SELECT *
   FROM orders
-  WHERE status = 'completed'
   `
     )
     .then(res => {
@@ -38,36 +37,26 @@ const getCompletedOrders = function() {
       return { arr };
     });
 };
-exports.getCompletedOrders = getCompletedOrders;
+exports.getAllOrders = getAllOrders;
 
-const getPendingOrders = function() {
-  return db
-    .query(
-      `
-  SELECT *
-  FROM orders
-  WHERE status = 'pending'
-  `
-    )
-    .then(res => {
-      const arr = res.rows;
-      return { arr };
-    });
-};
-exports.getPendingOrders = getPendingOrders;
 
-const getAcceptedOrders = function() {
-  return db
-    .query(
-      `
-  SELECT *
-  FROM orders
-  WHERE status = 'accepted'
+// place a new order
+const addNewOrder = function(data) {
+  const queryParams = [];
+  const query1 = `
+  INSERT INTO orders (user_id, status, total_price)
+  VALUES (1, 'pending', data.total_price)
   `
-    )
-    .then(res => {
-      const arr = res.rows;
-      return { arr };
-    });
-};
-exports.getAcceptedOrders = getAcceptedOrders;
+  const query2 = `
+  INSERT INTO order_items (item_id, qty, order_id)
+  VALUES (data.item_id, data.qty, ${IDENT_CURRENT('orders')})
+  `
+
+  return db.query(query1, queryParams)
+  .then(query2, queryParams)
+  .then(res => res.rows);
+}
+
+const changeOrderStatus = function () {
+
+}

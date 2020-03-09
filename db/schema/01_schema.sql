@@ -27,10 +27,10 @@ CREATE TABLE users (
 CREATE TABLE orders (
   id SERIAL PRIMARY KEY NOT NULL,
   user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  created_at TIMESTAMP,
+  created_at TIMESTAMP DEFAULT NOW(),
   status VARCHAR(255),
   total_price INTEGER,
-  wait_time VARCHAR(255)
+  wait_time VARCHAR(255) DEFAULT NULL
 );
 
 CREATE TABLE order_items (
