@@ -66,17 +66,17 @@ const indexRoutes = require("./routes/index");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/habitual/users", usersRoutes(db));
-app.use("/habitual/restaurants", restaurantsRoutes(db));
-app.use("/habitual", indexRoutes());
+app.use("/order", usersRoutes(db));
+app.use("/restaurants", restaurantsRoutes(db));
+app.use("/", indexRoutes());
 // Note: mount other resources here, using the same pattern above
 
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
-app.get("/", (req, res) => {
-  res.redirect("/habitual");
-});
+// app.get("/", (req, res) => {
+//   res.redirect("/");
+// });
 
 io.on("connection", function(socket) {
   console.log("=====\n", socket.id);

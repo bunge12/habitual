@@ -12,7 +12,7 @@ const path = require("path");
 module.exports = db => {
   router.get("/", (req, res) => {
     //! example page
-    res.sendFile("menu1.html", { root: path.join(__dirname, "../views") });
+    res.render("menu");
 
     db.query(`SELECT * FROM users;`)
       .then(data => {
