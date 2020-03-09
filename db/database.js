@@ -1,11 +1,9 @@
 const { Pool } = require('pg');
+const connectionString = process.env.DATABASE_URL;
 
-// const pool = new Pool({
-//   user: 'vagrant',
-//   password: '123',
-//   host: 'localhost',
-//   database: 'lightbnb'
-// });
+const pool = new Pool({
+  connectionString : connectionString
+});
 
 // get all the menu items
 const getAllItems = function() {
