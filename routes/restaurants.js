@@ -18,7 +18,7 @@ module.exports = (db, io) => {
   router.get("/", (req, res) => {
     req.session["user_id"] = 2;
     req.session["user_type"] = "restaurant";
-    db.getCompletedOrders(20)
+    db.getAllOrders(20)
       .then(response => res.render("orders", response))
       .catch(e => {
         console.error(e);
@@ -45,8 +45,6 @@ module.exports = (db, io) => {
     }
     // end
 
-    io.emit("orderStatusChanged", { status, waitTime });
-
     db.changeOrderStatus(orderId, status, waitTime)
       .then(() => {
         if (status === "accepted") {
@@ -65,14 +63,6 @@ module.exports = (db, io) => {
             body: `Hello Alice, your order ID:${orderId} has been cancelled by the restaurant, sorry for the inconvenience.`
           });
         }
-        if (status === "accepted") {
-          // message says wait time
-          twilioClient.messages.create({
-            to: process.env.CUSTOMER_PHONE_NUM,
-            from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello Alice, your order ID:${orderId} will be ready in ${waitTime} minutes!`
-          });
-        }
         if (status === "completed") {
           // message says wait time
           twilioClient.messages.create({
@@ -81,6 +71,9 @@ module.exports = (db, io) => {
             body: `Hello Alice, your order ID:${orderId} is ready!`
           });
         }
+      })
+      .then(() => {
+        io.emit("orderStatusChanged", { status, waitTime });
       })
       .catch(e => {
         console.error(e);
