@@ -24,13 +24,12 @@ const getAllItems = function(limit = 10) {
 };
 exports.getAllItems = getAllItems;
 
-const getCompletedOrders = function() {
+const getAllOrders = function() {
   return db
     .query(
       `
   SELECT *
   FROM orders
-  WHERE status = 'completed'
   `
     )
     .then(res => {
@@ -38,36 +37,39 @@ const getCompletedOrders = function() {
       return { arr };
     });
 };
-exports.getCompletedOrders = getCompletedOrders;
+exports.getAllOrders = getAllOrders;
 
-const getPendingOrders = function() {
-  return db
-    .query(
-      `
-  SELECT *
-  FROM orders
-  WHERE status = 'pending'
-  `
-    )
-    .then(res => {
-      const arr = res.rows;
-      return { arr };
-    });
-};
-exports.getPendingOrders = getPendingOrders;
 
-const getAcceptedOrders = function() {
-  return db
-    .query(
-      `
-  SELECT *
-  FROM orders
-  WHERE status = 'accepted'
+// place a new order
+const addNewOrder = function() {
+  const query = `
+  INSERT INTO orders (user_id, status, total_price)
+  VALUES (1, 'pending', 4749)
+  RETURNING id
   `
-    )
-    .then(res => {
-      const arr = res.rows;
-      return { arr };
-    });
-};
-exports.getAcceptedOrders = getAcceptedOrders;
+  return db.query(query)
+  .then(res => {
+    return db.query (`
+  INSERT INTO order_items (item_id, qty, order_id)
+  VALUES (5, 2, ${res.rows[0].id})
+  RETURNING *
+  `)
+})
+  .then(res => res.rows);
+}
+exports.addNewOrder = addNewOrder;
+
+const changeOrderStatus = function (orderId, status, waitTime) {
+  const query = '';
+  if (waitTime) {
+    query = `
+    UPDATE orders SET status = ${status}, wait_time = ${waitTime}
+    WHERE orders.id = ${orderId};`
+  } else {
+    query = `
+    UPDATE orders SET status = ${status}
+    WHERE orders.id = ${orderId};`
+  }
+  return db.query(query)
+}
+exports.changeOrderStatus = changeOrderStatus;
