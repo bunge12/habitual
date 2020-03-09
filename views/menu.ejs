@@ -26,10 +26,10 @@
       `;
       $(".item_list").append(row);
       let currentTotal = $("#cart_total").html();
-      let newTotal = Number(currentTotal) + (res[2] / 100);
+      let newTotal = Math.round((Number(currentTotal) + (res[2] / 100)) * 100) / 100;
       $("#cart_total").html(newTotal);
       $("#order_value").val(newTotal * 100);
-      $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success");
+      $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success").attr("disabled", "disabled");
 
     })
 
@@ -38,6 +38,8 @@
       let form = $(this);
       let data = form.serialize();
       console.log("Serialized data: ", data)
+      $("#cart_header").html("Your order was sent!")
+      $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning text-white")
     })
   })
 </script>
@@ -72,6 +74,7 @@
 
     </div>
 
+    <!-- Cart -->
     <div class="container fixed-bottom">
       <div class="row">
 
@@ -98,6 +101,7 @@
         </div>
       </div>
     </div>
+    <!-- Footer -->
   </div>
 
   <script type="text/javascript" src="/scripts/app.js"></script>
