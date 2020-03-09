@@ -16,7 +16,7 @@ module.exports = db => {
   //! need the getAllOrders(limit) function from db
   //! should return all orders
   router.get("/", (req, res) => {
-    req.session["user_id"] = req.params.id;
+    req.session["user_id"] = 2;
     req.session["user_type"] = "restaurant";
     db.getCompletedOrders(20)
       .then(response => res.render("orders", response))
@@ -29,16 +29,16 @@ module.exports = db => {
   // place the order
   //! need the changeOrderStatus(orderId, status[,waitTime]) from db, should receive 2 or 3 params
   //! should return an object {user_name, user_phone}
-  router.put("/:id/orders/:orderid", (req, res) => {
+  router.put("/:orderid", (req, res) => {
     const orderId = req.params.orderid;
     const { status, waitTime } = req.body;
     db.changeOrderStatus(orderId, status, waitTime)
       .then(response => {
-        const { name, phone } = response;
+        const { name } = response;
         if (status === "accepted") {
           // message says wait time
           twilioClient.messages.create({
-            to: phone,
+            to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
             body: `Hello ${name}, your order ID:${orderId} will be ready in ${waitTime} minutes!`
           });
@@ -46,9 +46,25 @@ module.exports = db => {
         if (status === "canceled") {
           // message says canceled
           twilioClient.messages.create({
-            to: phone,
+            to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
             body: `Hello ${name}, your order ID:${orderId} has been canceled by the restaurant, sorry for the inconvenience.`
+          });
+        }
+        if (status === "accepted") {
+          // message says wait time
+          twilioClient.messages.create({
+            to: process.env.CUSTOMER_PHONE_NUM,
+            from: process.env.TWILIO_PHONE_NUM,
+            body: `Hello ${name}, your order ID:${orderId} will be ready in ${waitTime} minutes!`
+          });
+        }
+        if (status === "completed") {
+          // message says wait time
+          twilioClient.messages.create({
+            to: process.env.CUSTOMER_PHONE_NUM,
+            from: process.env.TWILIO_PHONE_NUM,
+            body: `Hello ${name}, your order ID:${orderId} is ready!`
           });
         }
         return res.send(response);
