@@ -15,7 +15,7 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 
 // PG database client/connection setup
-const db = require('./db/database');
+const db = require("./db/database");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -57,13 +57,13 @@ app.use(
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const usersRoutes = require("./routes/users");
+const orderRoutes = require("./routes/order");
 const restaurantsRoutes = require("./routes/restaurants");
 const indexRoutes = require("./routes/index");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/order", usersRoutes(db));
+app.use("/order", orderRoutes(db));
 app.use("/restaurants", restaurantsRoutes(db));
 app.use("/", indexRoutes());
 // Note: mount other resources here, using the same pattern above
