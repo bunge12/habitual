@@ -19,3 +19,7 @@ INSERT INTO items (name, description, price, picture_url)
 VALUES ('Fettuccini', 'Chicken breast, shrimp, tomatoes, beans and marinara sauce', 10.99, 'https://www.pexels.com/photo/pasta-on-white-plate-on-focus-photo-1527603/');
 INSERT INTO items (name, description, price, picture_url)
 VALUES ('Pepperoni Pizza', 'Topped with mushrooms, peppers, olives, tomatoes and pickles', 10.99, 'https://www.pexels.com/photo/pepperoni-pizza-803290/');
+INSERT INTO items (name, description, price, picture_url, active)
+VALUES ('Lollipops', 'candy flavoured', 0.59, 'https://www.pexels.com/photo/pink-and-grey-heart-shape-lollipop-on-clear-glass-jar-40834/', false);
+INSERT INTO items (name, description, price, picture_url, active)
+VALUES ('Icecream', 'Icy and creamy!', 1.59, 'https://www.pexels.com/photo/dessert-ice-cream-summer-sweet-3631/', false);
