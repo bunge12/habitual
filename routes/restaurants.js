@@ -10,33 +10,16 @@ const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require("twilio")(accountSid, authToken);
-const path = require("path");
 
 module.exports = db => {
-  router.get("/", (req, res) => {
-    //! example page
-    res.render("orders");
-
-    let query = `SELECT * FROM widgets`;
-    console.log(query);
-    db.query(query)
-      .then(data => {
-        const widgets = data.rows;
-        res.json({ widgets });
-      })
-      .catch(err => {
-        res.status(500).json({ error: err.message });
-      });
-  });
-
   // show all the orders
   //! need the getAllOrders(limit) function from db
   //! should return all orders
-  router.get("/test", (req, res) => {
+  router.get("/", (req, res) => {
     req.session["user_id"] = req.params.id;
     req.session["user_type"] = "restaurant";
     db.getCompletedOrders(20)
-      .then(response => res.send(response))
+      .then(response => res.render("orders", response))
       .catch(e => {
         console.error(e);
         res.send(e);
