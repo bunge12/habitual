@@ -15,9 +15,7 @@ const path = require("path");
 module.exports = db => {
   router.get("/", (req, res) => {
     //! example page
-    res.sendFile("orders2.html", {
-      root: path.join(__dirname, "../views")
-    });
+    res.render("orders");
 
     let query = `SELECT * FROM widgets`;
     console.log(query);
