@@ -5,7 +5,7 @@ db.connect();
 // exports.db = db;
 
 // get all the menu items
-const getAllItems = function(limit = 10) {
+const getAllItems = function (limit = 10) {
   const values = [limit];
   return db
     .query(
@@ -24,7 +24,7 @@ const getAllItems = function(limit = 10) {
 };
 exports.getAllItems = getAllItems;
 
-const getCompletedOrders = function() {
+const getCompletedOrders = function () {
   return db
     .query(
       `
@@ -40,7 +40,7 @@ const getCompletedOrders = function() {
 };
 exports.getCompletedOrders = getCompletedOrders;
 
-const getPendingOrders = function() {
+const getPendingOrders = function () {
   return db
     .query(
       `
@@ -53,7 +53,7 @@ const getPendingOrders = function() {
 };
 exports.getPendingOrders = getPendingOrders;
 
-const getAcceptedOrders = function() {
+const getAcceptedOrders = function () {
   return db
     .query(
       `
