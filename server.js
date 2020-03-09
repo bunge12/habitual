@@ -63,8 +63,8 @@ const indexRoutes = require("./routes/index");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/order", orderRoutes(db));
-app.use("/restaurants", restaurantsRoutes(db));
+app.use("/order", orderRoutes(db, io));
+app.use("/restaurants", restaurantsRoutes(db, io));
 app.use("/", indexRoutes());
 // Note: mount other resources here, using the same pattern above
 
