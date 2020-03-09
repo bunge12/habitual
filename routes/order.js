@@ -11,10 +11,8 @@ const router = express.Router();
 module.exports = db => {
   // show the menu with all items
   // setup the session cookies: user_id(id), user_type(customer)
-  //! need the getAllItems(limit) from db
-  //! should return all the items
   router.get("/", (req, res) => {
-    req.session["user_id"] = req.params.id;
+    req.session["user_id"] = 1;
     req.session["user_type"] = "customer";
     db.getAllItems(20)
       .then(response => res.render("menu", response))
@@ -27,10 +25,10 @@ module.exports = db => {
   // place the order
   //! need the addNewOrder(user_id) from db
   //! should return the status of new order to change the status of place-order-btn
-  router.post("/:id/order", (req, res) => {
+  router.post("/order", (req, res) => {
     // user id
-    const id = req.session["user_id"] || req.params.id;
-    db.addNewOrder(id)
+    const user_id = req.session["user_id"];
+    db.addNewOrder(user_id)
       .then(response => res.send(response))
       .catch(e => {
         console.error(e);
