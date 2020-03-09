@@ -60,7 +60,7 @@ const addNewOrder = function() {
 exports.addNewOrder = addNewOrder;
 
 const changeOrderStatus = function (orderId, status, waitTime) {
-  const query = '';
+  let query = '';
   if (waitTime) {
     query = `
     UPDATE orders SET status = ${status}, wait_time = ${waitTime}
