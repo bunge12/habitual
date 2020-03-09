@@ -24,134 +24,55 @@
   <div id="body" class="container col-9 mt-3">
 
     <div class="card-columns">
+
+
+      <% for (let item of arr) { %>
       <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/RedDot_Burger.jpg/1599px-RedDot_Burger.jpg"
-          class="card-img-top" alt="...">
+        <img src="<%= item.picture_url %>" class="card-img-top">
         <div class="card-body">
-          <h5 class="card-title">Yum yum burger</h5>
-          <p class="card-text">Delicious burger served with fries!.</p>
+          <h5 class="card-title"><%= item.name %></h5>
+          <p class="card-text"><%= item.description %></p>
         </div>
         <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
+          <span class="align-middle">$<%= item.price/100 %></span>
           <a href="#" class="btn btn-primary">Order</a>
         </div>
       </div>
-      <div class="card">
-        <img src="https://assets3.thrillist.com/v1/image/1889968/size/tl-horizontal_main_2x.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Vodcuh</h5>
-          <p class="card-text">Can't say NO to a vodka shot!</p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://assets3.thrillist.com/v1/image/1889968/size/tl-horizontal_main_2x.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste, voluptatum?.</p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/RedDot_Burger.jpg/1599px-RedDot_Burger.jpg"
-          class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iure quae, maxime aspernatur
-            soluta animi ducimus?</p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://assets3.thrillist.com/v1/image/1889968/size/tl-horizontal_main_2x.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit..</p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/RedDot_Burger.jpg/1599px-RedDot_Burger.jpg"
-          class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Velit vel saepe accusantium?.
-          </p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://assets3.thrillist.com/v1/image/1889968/size/tl-horizontal_main_2x.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia veniam vel fuga minus
-            reprehenderit porro..</p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="https://assets3.thrillist.com/v1/image/1889968/size/tl-horizontal_main_2x.jpg" class="card-img-top"
-          alt="...">
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque, modi?.</p>
-        </div>
-        <div class="card-footer text-right">
-          <span class="align-middle">$3.99</span>
-          <a href="#" class="btn btn-primary">Order</a>
-        </div>
-      </div>
+      <% } %>
+
+
+
+
+
+
+
 
     </div>
 
-  </div>
+    <div class="container fixed-bottom">
+      <div class="row">
+        <div class='col-8'></div>
 
-  <div class="container fixed-bottom">
-    <div class="row">
-      <div class='col-8'></div>
-
-      <div class="col-4 align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0">
-        <header style="background-color: #07a7c4" class='p-2 text-white rounded-top'>
-          <strong>Your order details:</strong>
-        </header>
-        <section class="mt-2">
-          <ul>
-            <li>Burger</li>
-            <li>Vodka</li>
-            <li>Fries</li>
-          </ul>
-        </section>
-        <footer class='text-center d-flex mb-2 justify-content-center'>
-          <button type="button" class="btn btn-primary btn-sm btn-block w-75">Place Order | Total: $39.99</button>
-        </footer>
+        <div class="col-4 align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0">
+          <header style="background-color: #07a7c4" class='p-2 text-white rounded-top'>
+            <strong>Your order details:</strong>
+          </header>
+          <section class="mt-2">
+            <ul>
+              <li>Burger</li>
+              <li>Vodka</li>
+              <li>Fries</li>
+            </ul>
+          </section>
+          <footer class='text-center d-flex mb-2 justify-content-center'>
+            <button type="button" class="btn btn-primary btn-sm btn-block w-75">Place Order | $39.99</button>
+          </footer>
 
 
+        </div>
       </div>
     </div>
   </div>
-
 
 
 
