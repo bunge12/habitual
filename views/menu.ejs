@@ -17,11 +17,25 @@
   $(document).ready(function () {
     $('.cart').click(function (event) {
       let res = $(this).val().split(",")
-      let row = `<tr><td>${res[1]}</td><td>1</td><td>$${res[2] / 100}</td></tr>`;
+      let row = `
+      <tr>
+        <input type='hidden' name='id' value='${res[0]}' quantity=1>
+        <td>${res[1]}</td><td>1</td><td>$${res[2] / 100}</td></tr>
+      `;
       $(".item_list").append(row);
       let currentTotal = $("#cart_total").html();
       let newTotal = Number(currentTotal) + (res[2] / 100);
       $("#cart_total").html(newTotal);
+      $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success");
+      // $(this).parent().html("Added!")
+
+    })
+
+    $("#order_details").submit(function (event) {
+      event.preventDefault();
+      let form = $(this);
+      let data = form.serialize();
+      console.log("Serialized data: ", data)
     })
   })
 </script>
@@ -48,7 +62,7 @@
           <p class="card-text"><%= item.description %></p>
         </div>
         <div class="card-footer text-right">
-          <span class="align-middle">$<%= item.price/100 %></span>
+          <span class="align-middle price">$<%= item.price/100 %></span>
           <button value="<%= item.id %>,<%= item.name %>,<%= item.price %>" class="btn btn-primary cart">Order</a>
         </div>
       </div>
@@ -66,14 +80,16 @@
           </header>
           <section class="mt-2">
             <table class="table table-sm table-striped">
-              <tbody class="item_list">
-              </tbody>
+              <form action="/order" method="POST" id="order_details">
+                <tbody class="item_list">
+                </tbody>
 
             </table>
           </section>
           <footer class='text-center d-flex mb-2 justify-content-center'>
-            <button type="button" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
+            <button id="submit_order" type="submit" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
                 id="cart_total"></button>
+            </form>
           </footer>
 
 
