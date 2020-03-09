@@ -11,7 +11,7 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require("twilio")(accountSid, authToken);
 
-module.exports = db => {
+module.exports = (db, io) => {
   // show all the orders
   //! need the getAllOrders(limit) function from db
   //! should return all orders
@@ -28,19 +28,33 @@ module.exports = db => {
 
   // place the order
   //! need the changeOrderStatus(orderId, status[,waitTime]) from db, should receive 2 or 3 params
-  //! should return an object {user_name, user_phone}
   router.put("/:orderid", (req, res) => {
     const orderId = req.params.orderid;
     const { status, waitTime } = req.body;
+
+    // emit io event
+    // add following code to the html
+    {
+      /* <script src="/socket.io/socket.io.js"></script>
+              <script>
+          let socket = io();
+          socket.on('orderStatusChanged', function (data) {
+            console.log(data); // some jQuery
+          });
+        </script> */
+    }
+    // end
+
+    io.emit("orderStatusChanged", { status, waitTime });
+
     db.changeOrderStatus(orderId, status, waitTime)
-      .then(response => {
-        const { name } = response;
+      .then(() => {
         if (status === "accepted") {
           // message says wait time
           twilioClient.messages.create({
             to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello ${name}, your order ID:${orderId} will be ready in ${waitTime} minutes!`
+            body: `Hello Alice, your order ID:${orderId} will be ready in ${waitTime} minutes!`
           });
         }
         if (status === "canceled") {
@@ -48,7 +62,7 @@ module.exports = db => {
           twilioClient.messages.create({
             to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello ${name}, your order ID:${orderId} has been canceled by the restaurant, sorry for the inconvenience.`
+            body: `Hello Alice, your order ID:${orderId} has been canceled by the restaurant, sorry for the inconvenience.`
           });
         }
         if (status === "accepted") {
@@ -56,7 +70,7 @@ module.exports = db => {
           twilioClient.messages.create({
             to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello ${name}, your order ID:${orderId} will be ready in ${waitTime} minutes!`
+            body: `Hello Alice, your order ID:${orderId} will be ready in ${waitTime} minutes!`
           });
         }
         if (status === "completed") {
@@ -64,10 +78,9 @@ module.exports = db => {
           twilioClient.messages.create({
             to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello ${name}, your order ID:${orderId} is ready!`
+            body: `Hello Alice, your order ID:${orderId} is ready!`
           });
         }
-        return res.send(response);
       })
       .catch(e => {
         console.error(e);

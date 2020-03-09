@@ -8,7 +8,7 @@
 const express = require("express");
 const router = express.Router();
 
-module.exports = db => {
+module.exports = (db, io) => {
   // show the menu with all items
   // setup the session cookies: user_id(id), user_type(customer)
   router.get("/", (req, res) => {
@@ -28,6 +28,21 @@ module.exports = db => {
   router.post("/order", (req, res) => {
     // user id
     const user_id = req.session["user_id"];
+
+    // emit io event
+    // add following code to the html
+    {
+      /* <script src="/socket.io/socket.io.js"></script>
+          <script>
+      let socket = io();
+      socket.on('orderStatusChanged', function (data) {
+        console.log(data); // some jQuery
+      });
+    </script> */
+    }
+    // end
+    io.emit("orderStatusChanged", { status: "pending" });
+
     db.addNewOrder(user_id)
       .then(response => res.send(response))
       .catch(e => {
