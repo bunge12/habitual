@@ -11,17 +11,17 @@ CREATE TABLE items (
   name VARCHAR(255) NOT NULL,
   description TEXT,
   price INTEGER  NOT NULL,
-  picture_url VARCHAR(255) NOT NULL,
-  active BOOLEAN
+  picture_url VARCHAR(255),
+  active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  type TINYINT NOT NULL,
+  type VARCHAR(255) NOT NULL,
   email VARCHAR(255),
   phone INTEGER NOT NULL,
-  active BOOLEAN
+  active BOOLEAN DEFAULT TRUE
 );
 
 CREATE TABLE orders (
@@ -31,11 +31,11 @@ CREATE TABLE orders (
   status VARCHAR(255),
   total_price INTEGER,
   wait_time VARCHAR(255)
-)
+);
 
 CREATE TABLE order_items (
   id SERIAL PRIMARY KEY NOT NULL,
   item_id INTEGER REFERENCES items(id) ON DELETE CASCADE,
   qty INTEGER,
   order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE
-)
+);
