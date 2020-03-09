@@ -11,6 +11,8 @@ const app = express();
 const morgan = require("morgan");
 const cookieSession = require("cookie-session");
 const methodOverride = require("method-override");
+const http = require("http").createServer(app);
+const io = require("socket.io")(http);
 
 // PG database client/connection setup
 const { Pool } = require("pg");
@@ -76,6 +78,10 @@ app.get("/", (req, res) => {
   res.redirect("/habitual");
 });
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+io.on("connection", function(socket) {
+  console.log("=====\n", socket.id);
+});
+
+http.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT} 😀`);
 });
