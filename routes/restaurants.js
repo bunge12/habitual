@@ -57,12 +57,12 @@ module.exports = (db, io) => {
             body: `Hello Alice, your order ID:${orderId} will be ready in ${waitTime} minutes!`
           });
         }
-        if (status === "canceled") {
-          // message says canceled
+        if (status === "cancelled") {
+          // message says cancelled
           twilioClient.messages.create({
             to: process.env.CUSTOMER_PHONE_NUM,
             from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello Alice, your order ID:${orderId} has been canceled by the restaurant, sorry for the inconvenience.`
+            body: `Hello Alice, your order ID:${orderId} has been cancelled by the restaurant, sorry for the inconvenience.`
           });
         }
         if (status === "accepted") {

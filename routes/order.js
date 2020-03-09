@@ -25,10 +25,9 @@ module.exports = (db, io) => {
   // place the order
   //! need the addNewOrder(user_id) from db
   //! should return the status of new order to change the status of place-order-btn
-  router.post("/order", (req, res) => {
+  router.post("/", (req, res) => {
     // user id
     const user_id = req.session["user_id"];
-    console.log("==========", "postpost");
 
     // emit io event
     // add following code to the html
