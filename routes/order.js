@@ -41,10 +41,12 @@ module.exports = (db, io) => {
     </script> */
     }
     // end
-    io.emit("orderStatusChanged", { status: "pending" });
 
     db.addNewOrder(user_id)
       .then(response => res.send(response))
+      .then(() => {
+        io.emit("orderStatusChanged", { status: "pending" });
+      })
       .catch(e => {
         console.error(e);
         res.send(e);
