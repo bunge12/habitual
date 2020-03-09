@@ -59,6 +59,17 @@ const addNewOrder = function() {
 }
 exports.addNewOrder = addNewOrder;
 
-const changeOrderStatus = function () {
-  // const query
+const changeOrderStatus = function (orderId, status, waitTime) {
+  const query = '';
+  if (waitTime) {
+    query = `
+    UPDATE orders SET status = ${status}, wait_time = ${waitTime}
+    WHERE orders.id = ${orderId};`
+  } else {
+    query = `
+    UPDATE orders SET status = ${status}
+    WHERE orders.id = ${orderId};`
+  }
+  return db.query(query)
 }
+exports.changeOrderStatus = changeOrderStatus;
