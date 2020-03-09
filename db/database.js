@@ -49,7 +49,10 @@ const getPendingOrders = function () {
   WHERE status = 'pending'
   `
     )
-    .then(res => res.rows[0]);
+    .then(res => {
+      const arr = res.rows;
+      return { arr };
+    });
 };
 exports.getPendingOrders = getPendingOrders;
 
@@ -62,6 +65,9 @@ const getAcceptedOrders = function () {
   WHERE status = 'accepted'
   `
     )
-    .then(res => res.rows[0]);
+    .then(res => {
+      const arr = res.rows;
+      return { arr };
+    });
 };
 exports.getAcceptedOrders = getAcceptedOrders;
