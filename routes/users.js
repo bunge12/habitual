@@ -50,7 +50,7 @@ module.exports = db => {
   // setup the session cookies: user_id(id), user_type(customer)
   //! need the getAllItems(limit) from db
   //! should return all the items
-  router.get("/:id/order", (req, res) => {
+  router.get("/test", (req, res) => {
     req.session["user_id"] = req.params.id;
     req.session["user_type"] = "customer";
     db.getAllItems(20)
