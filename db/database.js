@@ -1,13 +1,12 @@
-const { Pool } = require('pg');
-const connectionString = process.env.DATABASE_URL;
-
-const pool = new Pool({
-  connectionString : connectionString
-});
+const { Pool } = require("pg");
+const dbParams = require("../lib/db.js");
+const db = new Pool(dbParams);
+db.connect();
+exports.db = db;
 
 // get all the menu items
 const getAllItems = function() {
-  return pool.query(`
+  return db.query(`
   SELECT *
   FROM items
   WHERE active = true
@@ -18,7 +17,7 @@ exports.getAllItems = getAllItems;
 
 
 const getCompletedOrders = function() {
-  return pool.query(`
+  return db.query(`
   SELECT *
   FROM orders
   WHERE status = 'completed'
@@ -29,7 +28,7 @@ exports.getCompletedOrders = getCompletedOrders;
 
 
 const getPendingOrders = function() {
-  return pool.query(`
+  return db.query(`
   SELECT *
   FROM orders
   WHERE status = 'pending'
@@ -40,7 +39,7 @@ exports.getPendingOrders = getPendingOrders;
 
 
 const getAcceptedOrders = function() {
-  return pool.query(`
+  return db.query(`
   SELECT *
   FROM orders
   WHERE status = 'accepted'
