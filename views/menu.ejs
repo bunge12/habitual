@@ -16,18 +16,20 @@
 <script>
   $(document).ready(function () {
     $('.cart').click(function (event) {
+      $("#order_details").css("display", "block");
+      $("#cart_header").html("Your order details:")
       let res = $(this).val().split(",")
       let row = `
       <tr>
-        <input type='hidden' name='id' value='${res[0]}' quantity=1>
+        <input type='hidden' name='item' value='${res[0]},1'>
         <td>${res[1]}</td><td>1</td><td>$${res[2] / 100}</td></tr>
       `;
       $(".item_list").append(row);
       let currentTotal = $("#cart_total").html();
       let newTotal = Number(currentTotal) + (res[2] / 100);
       $("#cart_total").html(newTotal);
+      $("#order_value").val(newTotal * 100);
       $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success");
-      // $(this).parent().html("Added!")
 
     })
 
@@ -76,20 +78,20 @@
 
         <div class="col-4 align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0">
           <header style="background-color: #07a7c4" class='p-2 text-white rounded-top'>
-            <strong>Your order details:</strong>
+            <strong><span id='cart_header'>Your cart is empty.</span></strong>
           </header>
-          <section class="mt-2">
-            <table class="table table-sm table-striped">
-              <form action="/order" method="POST" id="order_details">
+          <form action="/order" method="POST" id="order_details" style="display:none;">
+            <section class="mt-2">
+              <table class="table table-sm table-striped">
                 <tbody class="item_list">
                 </tbody>
-
-            </table>
-          </section>
-          <footer class='text-center d-flex mb-2 justify-content-center'>
-            <button id="submit_order" type="submit" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
-                id="cart_total"></button>
-            </form>
+              </table>
+            </section>
+            <input type="hidden" id="order_value" name="order_value" value="0">
+            <footer class='text-center d-flex mb-2 justify-content-center'>
+              <button id="submit_order" type="submit" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
+                  id="cart_total"></button>
+          </form>
           </footer>
 
 
