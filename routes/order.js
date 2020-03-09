@@ -28,6 +28,7 @@ module.exports = (db, io) => {
   router.post("/order", (req, res) => {
     // user id
     const user_id = req.session["user_id"];
+    console.log("==========", "postpost");
 
     // emit io event
     // add following code to the html
