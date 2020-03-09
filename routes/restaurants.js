@@ -32,10 +32,10 @@ module.exports = db => {
   // show all the orders
   //! need the getAllOrders(limit) function from db
   //! should return all orders
-  router.get("/:id/orders", (req, res) => {
+  router.get("/orders", (req, res) => {
     req.session["user_id"] = req.params.id;
     req.session["user_type"] = "restaurant";
-    db.getAllOrders(20)
+    db.getCompletedOrders(20)
       .then(response => res.send(response))
       .catch(e => {
         console.error(e);
