@@ -5,7 +5,7 @@ db.connect();
 // exports.db = db;
 
 // get all the menu items
-const getAllItems = function(limit = 10) {
+const getAllItems = function (limit = 10) {
   const values = [limit];
   return db
     .query(
@@ -24,7 +24,7 @@ const getAllItems = function(limit = 10) {
 };
 exports.getAllItems = getAllItems;
 
-const getAllOrders = function() {
+const getAllOrders = function () {
   return db
     .query(
       `
@@ -41,21 +41,21 @@ exports.getAllOrders = getAllOrders;
 
 
 // place a new order
-const addNewOrder = function() {
+const addNewOrder = function () {
   const query = `
   INSERT INTO orders (user_id, status, total_price)
   VALUES (1, 'pending', 4749)
   RETURNING id
   `
   return db.query(query)
-  .then(res => {
-    return db.query (`
+    .then(res => {
+      return db.query(`
   INSERT INTO order_items (item_id, qty, order_id)
   VALUES (5, 2, ${res.rows[0].id})
   RETURNING *
   `)
-})
-  .then(res => res.rows);
+    })
+    .then(res => res.rows);
 }
 exports.addNewOrder = addNewOrder;
 
