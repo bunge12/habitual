@@ -8,7 +8,7 @@ const { Pool } = require('pg');
 // });
 
 // get all the menu items
-const getMenuItems = function() {
+const getAllItems = function() {
   return pool.query(`
   SELECT *
   FROM items
@@ -16,7 +16,7 @@ const getMenuItems = function() {
   `)
   .then(res => res.rows[0])
 }
-exports.getMenuItems = getMenuItems;
+exports.getAllItems = getAllItems;
 
 
 const getCompletedOrders = function() {
