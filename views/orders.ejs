@@ -36,19 +36,19 @@
 
             <div class="row">
               <div class="col-6">
-                <% for (let item of arr) { %>
-                <% if (item.status === 'pending') { %>
+                <% for (let order of arr) { %>
+                <% if (order.status === 'pending') { %>
                 <div class="card order mb-2">
                   <div class="card-header">
-                    <span class="align-middle mr-1">Order #<%= item.orderid %> </span>
+                    <span class="align-middle mr-1">Order #<%= order.orderid %> </span>
                     <span class="badge badge-pill badge-secondary">Pending</span>
-                    <span class="float-right">$<%= item.total_price/100 %></span>
+                    <span class="float-right">$<%= order.total_price/100 %></span>
                   </div>
                   <div class="card-body">
                     <ul>
-                      <li>Burger</li>
-                      <li>Vodka</li>
-                      <li>Fries</li>
+                      <% for (let item of order.items) { %>
+                      <li><%= item.qty %> x <%= item.name %></li>
+                      <% } %>
                     </ul>
                   </div>
                   <div class="card-footer">
@@ -70,19 +70,19 @@
               </div>
 
               <div class="col-6">
-                <% for (let item of arr) { %>
-                <% if (item.status === 'accepted') { %>
+                <% for (let order of arr) { %>
+                <% if (order.status === 'accepted') { %>
                 <div class="card order mb-2">
                   <div class="card-header">
-                    <span class="align-middle mr-1">Order #<%= item.orderid %></span>
+                    <span class="align-middle mr-1">Order #<%= order.orderid %></span>
                     <span class="badge badge-pill badge-info">Accepted</span>
-                    <span class="float-right">$<%= item.total_price/100 %></span>
+                    <span class="float-right">$<%= order.total_price/100 %></span>
                   </div>
                   <div class="card-body">
                     <ul>
-                      <li>Burger</li>
-                      <li>Vodka</li>
-                      <li>Fries</li>
+                      <% for (let item of order.items) { %>
+                      <li><%= item.qty %> x <%= item.name %></li>
+                      <% } %>
                     </ul>
                   </div>
                   <div class="card-footer">
@@ -93,14 +93,14 @@
                 <% } %>
               </div>
             </div>
-
-
-
-
-
-
-
           </div>
+
+
+
+
+
+
+
           <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <div class="card order mb-2">
               <div class="card-header">
@@ -150,6 +150,7 @@
               </div>
             </div>
           </div>
+
 
         </div>
       </div>
