@@ -37,7 +37,6 @@
       $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success").attr("disabled", "disabled");
     });
 
-
     $(document.body).on('click', '.remove', function () {
       $(event.target).parents("tr").remove();
       let deduct = Number($(event.target).closest("tr").find(".qty").html()) * Number($(event.target).closest("tr").find(".price").html()) * -1;
@@ -63,8 +62,6 @@
         updateCart(deduct);
       }
     });
-
-
 
     $("#order_details").submit(function (event) {
       event.preventDefault();
@@ -113,10 +110,8 @@
     </div>
 
     <!-- Cart -->
-    <div class="container fixed-bottom col-5 mr-3">
+    <div class="container fixed-bottom col-4 mr-3">
       <div class="row">
-
-
         <div class=" align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0 w-100">
           <header style="background-color: #07a7c4" class='p-2 text-white rounded-top'>
             <strong><span id='cart_header'>Your cart is empty.</span></strong>
@@ -134,8 +129,6 @@
                   id="cart_total"></button>
           </form>
           </footer>
-
-
         </div>
       </div>
     </div>
