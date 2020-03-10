@@ -28,6 +28,8 @@ module.exports = (db, io) => {
   router.put("/:orderid", (req, res) => {
     const orderId = req.params.orderid;
     const { status, waitTime } = req.body;
+    console.log(req.body);
+    console.log(orderId);
 
     // send sms and emit io event
     db.changeOrderStatus(orderId, status, waitTime)
