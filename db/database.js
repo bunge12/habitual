@@ -5,7 +5,7 @@ db.connect();
 // exports.db = db;
 
 // get all the menu items
-const getAllItems = function (limit = 10) {
+const getAllItems = function(limit = 10) {
   const values = [limit];
   return db
     .query(
@@ -24,7 +24,7 @@ const getAllItems = function (limit = 10) {
 };
 exports.getAllItems = getAllItems;
 
-const getAllOrders = function () {
+const getAllOrders = function() {
   return db
     .query(
       `
@@ -41,8 +41,28 @@ const getAllOrders = function () {
 };
 exports.getAllOrders = getAllOrders;
 
+const getOrderById = function(id) {
+  const values = [parseInt(id)];
+  return db
+    .query(
+      `
+      SELECT orders.id AS orderID, orders.status, total_price, items.name, qty
+      FROM orders
+      JOIN order_items ON order_items.order_id = orders.id
+      JOIN items ON order_items.item_id = items.id
+      WHERE orders.id = $1;
+  `,
+      values
+    )
+    .then(res => {
+      const arr = res.rows;
+      return { arr };
+    });
+};
+exports.getOrderById = getOrderById;
+
 // place a new order
-const addNewOrder = async function (total_price, arr) {
+const addNewOrder = async function(total_price, arr) {
   const query = `
   INSERT INTO orders (user_id, status, total_price)
   VALUES (1, 'pending', ${total_price})
@@ -77,9 +97,9 @@ exports.addNewOrder = addNewOrder;
 
 // addNewOrder(2464, [{ item_id: 3, qty: 2 }, { item_id: 2, qty: 6 }]);
 
-const changeOrderStatus = function (orderId, status, waitTime) {
+const changeOrderStatus = function(orderId, status, waitTime) {
   let query = "";
-  if (typeof waitTime !== null && waitTime !== '') {
+  if (typeof waitTime !== null && waitTime !== "") {
     query = `
     UPDATE orders SET status = '${status}', wait_time = '${waitTime}'
     WHERE orders.id = '${orderId}';`;
