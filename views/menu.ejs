@@ -13,6 +13,7 @@
         $("#cart_header").html("Your cart is empty.")
       }
       $("#cart_total").html(newTotal);
+      $("#order_value").val(newTotal * 100);
     }
 
     $('.cart').click(function (event) {
@@ -46,6 +47,8 @@
 
     $(document.body).on('click', '.addOne', function () {
       let newQty = Number($(event.target).siblings(".qty").html()) + 1;
+      let itemId = $(event.target).parents("tr").find("input").val().split(",")[0];
+      $(event.target).parents("tr").find("input").val(`${itemId},${newQty}`);
       $(event.target).siblings(".qty").html(newQty);
       let add = Number($(event.target).closest("tr").find(".price").html());
       updateCart(add);
@@ -55,11 +58,16 @@
     $(document.body).on('click', '.removeOne', function () {
       let newQty = Number($(event.target).siblings(".qty").html()) - 1;
       let deduct = Number($(event.target).closest("tr").find(".price").html()) * -1;
+      let itemId = $(event.target).parents("tr").find("input").val().split(",")[0];
+      $(event.target).parents("tr").find("input").val(`${itemId},${newQty}`);
+
       if (newQty === 0) {
         $(event.target).parents("tr").remove();
+        $(event.target).parents("tr").find("input").remove();
         updateCart(deduct);
       } else {
         $(event.target).siblings(".qty").html(newQty);
+        $(event.target).parents("tr").find("input").val(`${itemId},${newQty}`);
         updateCart(deduct);
       }
     });
@@ -68,7 +76,7 @@
       event.preventDefault();
       let form = $(this);
       let data = form.serialize();
-      // console.log("Serialized data: ", data)
+      console.log("Serialized data: ", data)
       $("#cart_header").html("Your order was sent!")
       $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning").attr("disabled", "disabled");
       $(document.body).find("button").attr("disabled", "disabled");
@@ -128,7 +136,7 @@
                 </tbody>
               </table>
             </section>
-            <input type="hidden" id="order_value" name="order_value" value="0">
+            <input type="hidden" id="order_value" name="order_value">
             <footer class='text-center d-flex mb-2 justify-content-center'>
               <button id="submit_order" type="submit" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
                   id="cart_total"></button>
