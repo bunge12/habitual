@@ -24,20 +24,21 @@
         <input type='hidden' name='item' value='${res[0]},1'>
         <td>${res[1]}</td>
         <td>
-
-          <span class="removeOne">---</span>
+          <i class="fas fa-minus-square removeOne"></i>
           <span class="qty">1</span>
-          <span class="addOne">+++</span>
-
+          <i class="fas fa-plus-square addOne"></i>
         </td>
-        <td>$<span class="price">${res[2] / 100}</span></td><td class='remove'>X</td></tr>
+        <td>$<span class="price">${res[2] / 100}</span></td><td class=''><i class="fas fa-trash-alt remove"></i></td></tr>
       `;
       $(".item_list").append(row);
       updateCart(Number(res[2]) / 100);
       $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success").attr("disabled", "disabled");
+      // $(this).siblings(".price").css("display", "none");
     });
 
     $(document.body).on('click', '.remove', function () {
+      let itemId = $(event.target).parents("tr").find("input").val().split(",")[0];
+      $(`#${itemId}`).removeClass("btn-outline-success").addClass("btn-primary").prop("disabled", false).html("Order");
       $(event.target).parents("tr").remove();
       let deduct = Number($(event.target).closest("tr").find(".qty").html()) * Number($(event.target).closest("tr").find(".price").html()) * -1;
       updateCart(deduct);
@@ -67,9 +68,11 @@
       event.preventDefault();
       let form = $(this);
       let data = form.serialize();
-      console.log("Serialized data: ", data)
+      // console.log("Serialized data: ", data)
       $("#cart_header").html("Your order was sent!")
-      $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning text-white")
+      $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning").attr("disabled", "disabled");
+      $(document.body).find("button").attr("disabled", "disabled");
+      $(event.target).closest("form").find("i").remove();
       $.ajax({
         type: 'POST',
         url: '/menu',
@@ -102,7 +105,8 @@
         </div>
         <div class="card-footer text-right">
           <span class="align-middle price">$<%= item.price/100 %></span>
-          <button value="<%= item.id %>,<%= item.name %>,<%= item.price %>" class="btn btn-primary cart">Order</a>
+          <button id="<%= item.id %>" value="<%= item.id %>,<%= item.name %>,<%= item.price %>"
+            class="btn btn-primary cart">Order</a>
         </div>
       </div>
       <% } %>
