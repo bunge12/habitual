@@ -23,6 +23,12 @@ module.exports = (db, io) => {
       });
   });
 
+  // get single order by id
+  router.get("/:orderid", (req, res) => {
+    const id = req.params.orderid;
+    db.getOrderById(id).then(response => res.json(organize(response)));
+  });
+
   // place the order
   router.put("/:orderid", (req, res) => {
     const orderId = req.params.orderid;
