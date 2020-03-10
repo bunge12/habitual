@@ -2,6 +2,7 @@
 
 <script>
   $(document).ready(function () {
+
     $('.cart').click(function (event) {
       $("#order_details").css("display", "block");
       $("#cart_header").html("Your order details:")
@@ -9,7 +10,15 @@
       let row = `
       <tr>
         <input type='hidden' name='item' value='${res[0]},1'>
-        <td>${res[1]}</td><td>1</td><td>$${res[2] / 100}</td></tr>
+        <td>${res[1]}</td>
+        <td>
+
+          <span class="removeOne">---</span>
+          <span class="qty">1</span>
+          <span class="addOne">+++</span>
+
+        </td>
+        <td>$${res[2] / 100}</td><td class='remove'>X</td></tr>
       `;
       $(".item_list").append(row);
       let currentTotal = $("#cart_total").html();
@@ -17,8 +26,28 @@
       $("#cart_total").html(newTotal);
       $("#order_value").val(newTotal * 100);
       $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success").attr("disabled", "disabled");
+    });
 
-    })
+
+    $(document.body).on('click', '.remove', function () {
+      $(event.target).parent().remove()
+    });
+
+    $(document.body).on('click', '.addOne', function () {
+      let newQty = Number($(".qty").html()) + 1;
+      $(event.target).siblings(".qty").html(newQty);
+    });
+    $(document.body).on('click', '.removeOne', function () {
+      let newQty = Number($(".qty").html()) - 1;
+      if (newQty === 0) {
+        $(event.target).parent().remove()
+      } else {
+
+        $(event.target).siblings(".qty").html(newQty);
+      }
+    });
+
+
 
     $("#order_details").submit(function (event) {
       event.preventDefault();
