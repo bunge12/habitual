@@ -28,8 +28,10 @@ const getAllOrders = function () {
   return db
     .query(
       `
-      SELECT * FROM orders
+      SELECT orders.id AS orderID, orders.status, total_price, items.name, qty
+      FROM orders
       JOIN order_items ON order_items.order_id = orders.id
+      JOIN items ON order_items.item_id = items.id;
   `
     )
     .then(res => {

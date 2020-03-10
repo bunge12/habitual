@@ -22,7 +22,7 @@ module.exports = (db, io) => {
       .then(response => {
         // let arr = response.arr
         // res.send(arr);
-        res.render("orders", response);
+        res.render('orders', response);
       })
       .catch(e => {
         console.error(e);
