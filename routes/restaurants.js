@@ -19,7 +19,11 @@ module.exports = (db, io) => {
     req.session["user_id"] = 2;
     req.session["user_type"] = "restaurant";
     db.getAllOrders(20)
-      .then(response => res.render("orders", response))
+      .then(response => {
+        // let arr = response.arr
+        // res.send(arr);
+        res.render("orders", response);
+      })
       .catch(e => {
         console.error(e);
         res.send(e);
