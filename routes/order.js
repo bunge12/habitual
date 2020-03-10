@@ -27,8 +27,13 @@ module.exports = (db, io) => {
   //! should return the status of new order to change the status of place-order-btn
   router.post("/", (req, res) => {
     // user id
-    const user_id = req.session["user_id"];
-
+    const { item, order_value } = req.body;
+    let queryArr = [];
+    for (let i of item) {
+      let strArr = i.split(",");
+      let obj = { item_id: strArr[0], qty: strArr[1] };
+      queryArr.push(obj);
+    }
     // emit io event
     // add following code to the html
     {
@@ -41,9 +46,7 @@ module.exports = (db, io) => {
     </script> */
     }
     // end
-
-    db.addNewOrder(user_id)
-      .then(response => res.send(response))
+    db.addNewOrder(order_value, queryArr)
       .then(() => {
         io.emit("orderStatusChanged", { status: "pending" });
       })

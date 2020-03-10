@@ -27,6 +27,11 @@
       console.log("Serialized data: ", data)
       $("#cart_header").html("Your order was sent!")
       $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning text-white")
+      $.ajax({
+        type: 'POST',
+        url: '/order/',
+        data: form.serialize()
+      })
     })
   })
 </script>
