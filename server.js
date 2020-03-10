@@ -35,12 +35,9 @@ app.use(
 );
 app.use(express.static("public"));
 
-
 // method override for POST request from restaurant to change order status
-// !add a hidden input tag to work, where name="_method"  value="METHOD-YOU-WANT"
-// !<input type="hidden" name="_method" value="">
 app.use(
-  methodOverride(function (req) {
+  methodOverride(function(req) {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
       let method = req.body._method;
       delete req.body._method;
@@ -78,7 +75,7 @@ app.use("/logout", logoutRoutes());
 //   res.redirect("/");
 // });
 
-io.on("connection", function (socket) {
+io.on("connection", function(socket) {
   console.log("=====\n", socket.id);
 });
 
