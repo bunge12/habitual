@@ -1,7 +1,18 @@
 <%- include('partials/_header') %>
 
 <script>
+
   $(document).ready(function () {
+
+    const updateCart = (modifier) => {
+      let currentTotal = $("#cart_total").html();
+      let newTotal = Math.round((Number(currentTotal) + modifier) * 100) / 100
+      if (newTotal === 0) {
+        $("#order_details").css("display", "none");
+        $("#cart_header").html("Your cart is empty.")
+      }
+      $("#cart_total").html(newTotal);
+    }
 
     $('.cart').click(function (event) {
       $("#order_details").css("display", "block");
@@ -18,32 +29,37 @@
           <span class="addOne">+++</span>
 
         </td>
-        <td>$${res[2] / 100}</td><td class='remove'>X</td></tr>
+        <td>$<span class="price">${res[2] / 100}</span></td><td class='remove'>X</td></tr>
       `;
       $(".item_list").append(row);
-      let currentTotal = $("#cart_total").html();
-      let newTotal = Math.round((Number(currentTotal) + (res[2] / 100)) * 100) / 100;
-      $("#cart_total").html(newTotal);
-      $("#order_value").val(newTotal * 100);
+      updateCart(Number(res[2]) / 100);
       $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success").attr("disabled", "disabled");
     });
 
 
     $(document.body).on('click', '.remove', function () {
       $(event.target).parents("tr").remove();
+      let deduct = Number($(event.target).closest("tr").find(".qty").html()) * Number($(event.target).closest("tr").find(".price").html()) * -1;
+      updateCart(deduct);
     });
 
     $(document.body).on('click', '.addOne', function () {
-      let newQty = Number($(".qty").html()) + 1;
+      let newQty = Number($(event.target).siblings(".qty").html()) + 1;
       $(event.target).siblings(".qty").html(newQty);
+      let add = Number($(event.target).closest("tr").find(".price").html());
+      updateCart(add);
+
     });
+
     $(document.body).on('click', '.removeOne', function () {
-      let newQty = Number($(".qty").html()) - 1;
+      let newQty = Number($(event.target).siblings(".qty").html()) - 1;
+      let deduct = Number($(event.target).closest("tr").find(".price").html()) * -1;
       if (newQty === 0) {
         $(event.target).parents("tr").remove();
+        updateCart(deduct);
       } else {
-
         $(event.target).siblings(".qty").html(newQty);
+        updateCart(deduct);
       }
     });
 
@@ -96,11 +112,11 @@
     </div>
 
     <!-- Cart -->
-    <div class="container fixed-bottom">
+    <div class="container fixed-bottom col-5 mr-3">
       <div class="row">
 
 
-        <div class="col-4 align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0">
+        <div class=" align-self-end rounded-top justify-content-end mt-1 bg-white shadow p-0 w-100">
           <header style="background-color: #07a7c4" class='p-2 text-white rounded-top'>
             <strong><span id='cart_header'>Your cart is empty.</span></strong>
           </header>
