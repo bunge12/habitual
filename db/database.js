@@ -41,23 +41,27 @@ exports.getAllOrders = getAllOrders;
 
 
 // place a new order
-const addNewOrder = function () {
+const addNewOrder = function (total_price, arr) {
   const query = `
   INSERT INTO orders (user_id, status, total_price)
-  VALUES (1, 'pending', 4749)
+  VALUES (1, 'pending', ${total_price})
   RETURNING id
   `
   return db.query(query)
     .then(res => {
-      return db.query(`
-  INSERT INTO order_items (item_id, qty, order_id)
-  VALUES (5, 2, ${res.rows[0].id})
-  RETURNING *
-  `)
+      let queryString = ""
+      for (const item of arr) {
+        queryString += `
+        INSERT INTO order_items (item_id, qty, order_id)
+        VALUES (${item.item_id}, ${item.qty}, ${res.rows[0].id});
+        `
+      }
+      db.query(queryString);
     })
-    .then(res => res.rows);
 }
 exports.addNewOrder = addNewOrder;
+
+// addNewOrder(2464, [{ item_id: 3, qty: 2 }, { item_id: 2, qty: 6 }]);
 
 const changeOrderStatus = function (orderId, status, waitTime) {
   let query = '';
