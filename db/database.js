@@ -5,7 +5,7 @@ db.connect();
 // exports.db = db;
 
 // get all the menu items
-const getAllItems = function (limit = 10) {
+const getAllItems = function(limit = 10) {
   const values = [limit];
   return db
     .query(
@@ -24,7 +24,7 @@ const getAllItems = function (limit = 10) {
 };
 exports.getAllItems = getAllItems;
 
-const getAllOrders = function () {
+const getAllOrders = function() {
   return db
     .query(
       `
@@ -41,41 +41,41 @@ const getAllOrders = function () {
 };
 exports.getAllOrders = getAllOrders;
 
-
 // place a new order
-const addNewOrder = function (total_price, arr) {
+const addNewOrder = function(total_price, arr) {
   const query = `
   INSERT INTO orders (user_id, status, total_price)
-  VALUES (1, 'pending', ${total_price})
+  VALUES (1, 'pending', 777)
   RETURNING id
-  `
-  return db.query(query)
-    .then(res => {
-      let queryString = ""
-      for (const item of arr) {
-        queryString += `
+  `;
+  return db.query(query).then(res => {
+    let queryString = "";
+    for (const item of arr) {
+      queryString += `
         INSERT INTO order_items (item_id, qty, order_id)
-        VALUES (${item.item_id}, ${item.qty}, ${res.rows[0].id});
-        `
-      }
-      db.query(queryString);
-    })
-}
+        VALUES (${item.item_id},
+                ${item.qty},
+                ${res.rows[0].id});
+        `;
+    }
+    db.query(queryString);
+  });
+};
 exports.addNewOrder = addNewOrder;
 
 // addNewOrder(2464, [{ item_id: 3, qty: 2 }, { item_id: 2, qty: 6 }]);
 
-const changeOrderStatus = function (orderId, status, waitTime) {
-  let query = '';
+const changeOrderStatus = function(orderId, status, waitTime) {
+  let query = "";
   if (waitTime) {
     query = `
     UPDATE orders SET status = ${status}, wait_time = ${waitTime}
-    WHERE orders.id = ${orderId};`
+    WHERE orders.id = ${orderId};`;
   } else {
     query = `
     UPDATE orders SET status = ${status}
-    WHERE orders.id = ${orderId};`
+    WHERE orders.id = ${orderId};`;
   }
-  return db.query(query)
-}
+  return db.query(query);
+};
 exports.changeOrderStatus = changeOrderStatus;

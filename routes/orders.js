@@ -13,17 +13,11 @@ const twilioClient = require("twilio")(accountSid, authToken);
 
 module.exports = (db, io) => {
   // show all the orders
-  //! need the getAllOrders(limit) function from db
-  //! should return all orders
   router.get("/", (req, res) => {
     req.session["user_id"] = 2;
     req.session["user_type"] = "restaurant";
-    db.getAllOrders(20)
-      .then(response => {
-        // let arr = response.arr
-        // res.send(arr);
-        res.render('orders', response);
-      })
+    db.getAllOrders()
+      .then(response => res.render("orders", response))
       .catch(e => {
         console.error(e);
         res.send(e);
@@ -37,18 +31,6 @@ module.exports = (db, io) => {
     const { status, waitTime } = req.body;
 
     // emit io event
-    // add following code to the html
-    {
-      /* <script src="/socket.io/socket.io.js"></script>
-              <script>
-          let socket = io();
-          socket.on('orderStatusChanged', function (data) {
-            console.log(data); // some jQuery
-          });
-        </script> */
-    }
-    // end
-
     db.changeOrderStatus(orderId, status, waitTime)
       .then(() => {
         if (status === "accepted") {

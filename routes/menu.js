@@ -23,8 +23,6 @@ module.exports = (db, io) => {
   });
 
   // place the order
-  //! need the addNewOrder(user_id) from db
-  //! should return the status of new order to change the status of place-order-btn
   router.post("/", (req, res) => {
     // user id
     const { item, order_value } = req.body;
@@ -35,17 +33,6 @@ module.exports = (db, io) => {
       queryArr.push(obj);
     }
     // emit io event
-    // add following code to the html
-    {
-      /* <script src="/socket.io/socket.io.js"></script>
-          <script>
-      let socket = io();
-      socket.on('orderStatusChanged', function (data) {
-        console.log(data); // some jQuery
-      });
-    </script> */
-    }
-    // end
     db.addNewOrder(order_value, queryArr)
       .then(() => {
         io.emit("orderStatusChanged", { status: "pending" });
