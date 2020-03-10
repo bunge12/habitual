@@ -42,6 +42,7 @@ module.exports = (db, io) => {
     db.addNewOrder(order_value, queryArr)
       .then(() => {
         io.emit("orderStatusChanged", { status: "pending" });
+        res.end();
       })
       .catch(e => {
         console.error(e);

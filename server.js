@@ -35,11 +35,12 @@ app.use(
 );
 app.use(express.static("public"));
 
+
 // method override for POST request from restaurant to change order status
 // !add a hidden input tag to work, where name="_method"  value="METHOD-YOU-WANT"
 // !<input type="hidden" name="_method" value="">
 app.use(
-  methodOverride(function(req) {
+  methodOverride(function (req) {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
       let method = req.body._method;
       delete req.body._method;
@@ -60,12 +61,14 @@ app.use(
 const menuRoutes = require("./routes/menu");
 const ordersRoutes = require("./routes/orders");
 const indexRoutes = require("./routes/index");
+const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/menu", menuRoutes(db, io));
 app.use("/orders", ordersRoutes(db, io));
 app.use("/", indexRoutes());
+app.use("/logout", logoutRoutes());
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -75,7 +78,7 @@ app.use("/", indexRoutes());
 //   res.redirect("/");
 // });
 
-io.on("connection", function(socket) {
+io.on("connection", function (socket) {
   console.log("=====\n", socket.id);
 });
 
