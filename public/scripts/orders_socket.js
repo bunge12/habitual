@@ -1,6 +1,11 @@
 $(() => {
   let socket = io();
   socket.on("orderStatusChanged", function(data) {
-    console.log(data); // some jQuery
+    if (data.status === "pending") {
+      $.ajax({
+        type: "GET",
+        url: "/orders"
+      });
+    }
   });
 });
