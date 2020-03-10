@@ -30,7 +30,7 @@
 
 
     $(document.body).on('click', '.remove', function () {
-      $(event.target).parent().remove()
+      $(event.target).parents("tr").remove();
     });
 
     $(document.body).on('click', '.addOne', function () {
@@ -40,7 +40,7 @@
     $(document.body).on('click', '.removeOne', function () {
       let newQty = Number($(".qty").html()) - 1;
       if (newQty === 0) {
-        $(event.target).parent().remove()
+        $(event.target).parents("tr").remove();
       } else {
 
         $(event.target).siblings(".qty").html(newQty);
