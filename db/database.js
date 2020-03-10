@@ -41,25 +41,6 @@ const getAllOrders = function() {
 };
 exports.getAllOrders = getAllOrders;
 
-const getLastOrder = function() {
-  return db
-    .query(
-      `
-      SELECT orders.id AS orderID, orders.status, total_price, items.name, qty
-      FROM orders
-      JOIN order_items ON order_items.order_id = orders.id
-      JOIN items ON order_items.item_id = items.id
-      ORDER BY orders.id DESC
-      LIMIT 1;
-  `
-    )
-    .then(res => {
-      const arr = res.rows;
-      return { arr };
-    });
-};
-exports.getLastOrder = getLastOrder;
-
 // place a new order
 const addNewOrder = async function(total_price, arr) {
   const query = `

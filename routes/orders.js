@@ -23,9 +23,9 @@ module.exports = (db, io) => {
       });
   });
 
-  // get single order by id
+  // get latest order
   router.get("/last", (req, res) => {
-    db.getLastOrder().then(response => res.json(organize(response)));
+    db.getAllOrders().then(response => res.json(organize(response).arr[0]));
   });
 
   // place the order
