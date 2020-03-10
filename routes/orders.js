@@ -10,6 +10,7 @@ const router = express.Router();
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const twilioClient = require("twilio")(accountSid, authToken);
+const organize = require('../lib/helper');
 
 module.exports = (db, io) => {
   // show all the orders
@@ -17,7 +18,7 @@ module.exports = (db, io) => {
     req.session["user_id"] = 2;
     req.session["user_type"] = "restaurant";
     db.getAllOrders()
-      .then(response => res.render("orders", response))
+      .then(response => res.render("orders", organize(response)))
       .catch(e => {
         console.error(e);
         res.send(e);
