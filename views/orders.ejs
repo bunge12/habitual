@@ -16,36 +16,65 @@
       <span class="navbar-text">
         Welcome, Restaurant!
       </span>
-      <span>
-        <form action="/logout" method="post"><input type="submit" value="">logout</form>
-      </span>
+      <form action="/logout" method="post">
+        <input class="btn btn-outline-light" type="submit" value="Log Out" />
+      </form>
     </div>
   </nav>
   <div id="body" class="container col-9 mt-3">
-
     <div class="row">
       <div class="col-3">
-        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
-            aria-controls="v-pills-home" aria-selected="true">Current Orders</a>
-          <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
-            aria-controls="v-pills-profile" aria-selected="false">Completed Orders</a>
-
+        <div
+          class="nav flex-column nav-pills"
+          id="v-pills-tab"
+          role="tablist"
+          aria-orientation="vertical"
+        >
+          <a
+            class="nav-link active"
+            id="v-pills-home-tab"
+            data-toggle="pill"
+            href="#v-pills-home"
+            role="tab"
+            aria-controls="v-pills-home"
+            aria-selected="true"
+            >Current Orders</a
+          >
+          <a
+            class="nav-link"
+            id="v-pills-profile-tab"
+            data-toggle="pill"
+            href="#v-pills-profile"
+            role="tab"
+            aria-controls="v-pills-profile"
+            aria-selected="false"
+            >Completed Orders</a
+          >
         </div>
       </div>
       <div class="col-9">
         <div class="tab-content" id="v-pills-tabContent">
-          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-
+          <div
+            class="tab-pane fade show active"
+            id="v-pills-home"
+            role="tabpanel"
+            aria-labelledby="v-pills-home-tab"
+          >
             <div class="row">
               <div class="col-6">
-                <% for (let order of arr) { %>
-                <% if (order.status === 'pending') { %>
+                <% for (let order of arr) { %> <% if (order.status ===
+                'pending') { %>
                 <div class="card order mb-2">
                   <div class="card-header">
-                    <span class="align-middle mr-1">Order #<%= order.orderid %> </span>
-                    <span class="badge badge-pill badge-secondary">Pending</span>
-                    <span class="float-right">$<%= order.total_price/100 %></span>
+                    <span class="align-middle mr-1"
+                      >Order #<%= order.orderid %>
+                    </span>
+                    <span class="badge badge-pill badge-secondary"
+                      >Pending</span
+                    >
+                    <span class="float-right"
+                      >$<%= order.total_price/100 %></span
+                    >
                   </div>
                   <div class="card-body">
                     <ul>
@@ -55,31 +84,54 @@
                     </ul>
                   </div>
                   <div class="card-footer">
-                    <div class="input-group col-5 float-right pr-0" style="max-width: 13rem;">
-                      <button class="btn-sm btn-outline-danger float-right mr-2" type="button">Cancel</button>
+                    <div
+                      class="input-group col-5 float-right pr-0"
+                      style="max-width: 13rem;"
+                    >
+                      <button
+                        class="btn-sm btn-outline-danger float-right mr-2"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
 
-                      <input type="text" class="form-control border border-info border-right-0 rounded-left"
-                        placeholder="25m" aria-label="Wait time" aria-describedby="button-addon2" maxlength="4" size="4"
-                        required>
+                      <input
+                        type="text"
+                        class="form-control border border-info border-right-0 rounded-left"
+                        placeholder="25m"
+                        aria-label="Wait time"
+                        aria-describedby="button-addon2"
+                        maxlength="4"
+                        size="4"
+                        required
+                      />
                       <div class="input-group-append ">
-                        <button class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right"
-                          type="button" id="button-addon2">Accept</button>
+                        <button
+                          class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right"
+                          type="button"
+                          id="button-addon2"
+                        >
+                          Accept
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <% } %>
-                <% } %>
+                <% } %> <% } %>
               </div>
 
               <div class="col-6">
-                <% for (let order of arr) { %>
-                <% if (order.status === 'accepted') { %>
+                <% for (let order of arr) { %> <% if (order.status ===
+                'accepted') { %>
                 <div class="card order mb-2">
                   <div class="card-header">
-                    <span class="align-middle mr-1">Order #<%= order.orderid %></span>
+                    <span class="align-middle mr-1"
+                      >Order #<%= order.orderid %></span
+                    >
                     <span class="badge badge-pill badge-info">Accepted</span>
-                    <span class="float-right">$<%= order.total_price/100 %></span>
+                    <span class="float-right"
+                      >$<%= order.total_price/100 %></span
+                    >
                   </div>
                   <div class="card-body">
                     <ul>
@@ -89,27 +141,32 @@
                     </ul>
                   </div>
                   <div class="card-footer">
-                    <button type="button" class="btn-sm btn-outline-success float-right">Complete Order</button>
+                    <button
+                      type="button"
+                      class="btn-sm btn-outline-success float-right"
+                    >
+                      Complete Order
+                    </button>
                   </div>
                 </div>
-                <% } %>
-                <% } %>
+                <% } %> <% } %>
               </div>
             </div>
           </div>
 
-
-
-
-
-
-
-          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-            <% for (let order of arr) { %>
-            <% if (order.status === 'completed') { %>
+          <div
+            class="tab-pane fade"
+            id="v-pills-profile"
+            role="tabpanel"
+            aria-labelledby="v-pills-profile-tab"
+          >
+            <% for (let order of arr) { %> <% if (order.status === 'completed')
+            { %>
             <div class="card order mb-2">
               <div class="card-header">
-                <span class="align-middle mr-1">Order #<%= order.orderid %></span>
+                <span class="align-middle mr-1"
+                  >Order #<%= order.orderid %></span
+                >
                 <span class="badge badge-pill badge-success">Completed</span>
                 <span class="float-right">$<%= order.total_price/100 %></span>
               </div>
@@ -121,14 +178,13 @@
                 </ul>
               </div>
             </div>
-            <% } %>
-            <% } %>
-
-            <% for (let order of arr) { %>
-            <% if (order.status === 'cancelled') { %>
+            <% } %> <% } %> <% for (let order of arr) { %> <% if (order.status
+            === 'cancelled') { %>
             <div class="card order mb-2">
               <div class="card-header">
-                <span class="align-middle mr-1">Order #<%= order.orderid %></span>
+                <span class="align-middle mr-1"
+                  >Order #<%= order.orderid %></span
+                >
                 <span class="badge badge-pill badge-danger">Cancelled</span>
                 <span class="float-right">$<%= order.total_price/100 %></span>
               </div>
@@ -140,19 +196,14 @@
                 </ul>
               </div>
             </div>
-            <% } %>
-            <% } %>
-
-
+            <% } %> <% } %>
           </div>
-
-
         </div>
       </div>
     </div>
-
   </div>
 
-  <script src=“/socket.io/socket.io.js”></script>
-  <script src=“/scripts/orders_socket.js”></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/scripts/orders_socket.js"></script>
   <%- include('partials/_footer') %>
+</body>
