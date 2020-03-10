@@ -7,10 +7,8 @@
 
 const express = require("express");
 const router = express.Router();
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const twilioClient = require("twilio")(accountSid, authToken);
-const organize = require('../lib/helper');
+const sendMessage = require("../lib/twilio");
+const organize = require("../lib/helper");
 
 module.exports = (db, io) => {
   // show all the orders
@@ -31,35 +29,10 @@ module.exports = (db, io) => {
     const orderId = req.params.orderid;
     const { status, waitTime } = req.body;
 
-    // emit io event
+    // send sms and emit io event
     db.changeOrderStatus(orderId, status, waitTime)
       .then(() => {
-        if (status === "accepted") {
-          // message says wait time
-          twilioClient.messages.create({
-            to: process.env.CUSTOMER_PHONE_NUM,
-            from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello Alice, your order ID:${orderId} will be ready in ${waitTime} minutes!`
-          });
-        }
-        if (status === "cancelled") {
-          // message says cancelled
-          twilioClient.messages.create({
-            to: process.env.CUSTOMER_PHONE_NUM,
-            from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello Alice, your order ID:${orderId} has been cancelled by the restaurant, sorry for the inconvenience.`
-          });
-        }
-        if (status === "completed") {
-          // message says wait time
-          twilioClient.messages.create({
-            to: process.env.CUSTOMER_PHONE_NUM,
-            from: process.env.TWILIO_PHONE_NUM,
-            body: `Hello Alice, your order ID:${orderId} is ready!`
-          });
-        }
-      })
-      .then(() => {
+        sendMessage(orderId, status, waitTime);
         io.emit("orderStatusChanged", { status, waitTime });
       })
       .catch(e => {
