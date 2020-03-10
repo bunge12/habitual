@@ -61,12 +61,14 @@ app.use(
 const menuRoutes = require("./routes/menu");
 const ordersRoutes = require("./routes/orders");
 const indexRoutes = require("./routes/index");
+const logoutRoutes = require("./routes/logout");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/menu", menuRoutes(db, io));
 app.use("/orders", ordersRoutes(db, io));
 app.use("/", indexRoutes());
+app.use("/logout", logoutRoutes());
 // Note: mount other resources here, using the same pattern above
 
 // Home page
