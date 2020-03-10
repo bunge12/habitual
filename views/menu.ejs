@@ -13,6 +13,7 @@
         $("#cart_header").html("Your cart is empty.")
       }
       $("#cart_total").html(newTotal);
+      $("#order_value").val(newTotal * 100);
     }
 
     $('.cart').click(function (event) {
@@ -24,20 +25,21 @@
         <input type='hidden' name='item' value='${res[0]},1'>
         <td>${res[1]}</td>
         <td>
-
-          <span class="removeOne">---</span>
+          <i class="fas fa-minus-square removeOne"></i>
           <span class="qty">1</span>
-          <span class="addOne">+++</span>
-
+          <i class="fas fa-plus-square addOne"></i>
         </td>
-        <td>$<span class="price">${res[2] / 100}</span></td><td class='remove'>X</td></tr>
+        <td>$<span class="price">${res[2] / 100}</span></td><td class=''><i class="fas fa-trash-alt remove"></i></td></tr>
       `;
       $(".item_list").append(row);
       updateCart(Number(res[2]) / 100);
       $(this).html("Added!").removeClass("btn-primary").addClass("btn-outline-success").attr("disabled", "disabled");
+      // $(this).siblings(".price").css("display", "none");
     });
 
     $(document.body).on('click', '.remove', function () {
+      let itemId = $(event.target).parents("tr").find("input").val().split(",")[0];
+      $(`#${itemId}`).removeClass("btn-outline-success").addClass("btn-primary").prop("disabled", false).html("Order");
       $(event.target).parents("tr").remove();
       let deduct = Number($(event.target).closest("tr").find(".qty").html()) * Number($(event.target).closest("tr").find(".price").html()) * -1;
       updateCart(deduct);
@@ -45,6 +47,8 @@
 
     $(document.body).on('click', '.addOne', function () {
       let newQty = Number($(event.target).siblings(".qty").html()) + 1;
+      let itemId = $(event.target).parents("tr").find("input").val().split(",")[0];
+      $(event.target).parents("tr").find("input").val(`${itemId},${newQty}`);
       $(event.target).siblings(".qty").html(newQty);
       let add = Number($(event.target).closest("tr").find(".price").html());
       updateCart(add);
@@ -54,11 +58,16 @@
     $(document.body).on('click', '.removeOne', function () {
       let newQty = Number($(event.target).siblings(".qty").html()) - 1;
       let deduct = Number($(event.target).closest("tr").find(".price").html()) * -1;
+      let itemId = $(event.target).parents("tr").find("input").val().split(",")[0];
+      $(event.target).parents("tr").find("input").val(`${itemId},${newQty}`);
+
       if (newQty === 0) {
         $(event.target).parents("tr").remove();
+        $(event.target).parents("tr").find("input").remove();
         updateCart(deduct);
       } else {
         $(event.target).siblings(".qty").html(newQty);
+        $(event.target).parents("tr").find("input").val(`${itemId},${newQty}`);
         updateCart(deduct);
       }
     });
@@ -69,7 +78,9 @@
       let data = form.serialize();
       console.log("Serialized data: ", data)
       $("#cart_header").html("Your order was sent!")
-      $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning text-white")
+      $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning").attr("disabled", "disabled");
+      $(document.body).find("button").attr("disabled", "disabled");
+      $(event.target).closest("form").find("i").remove();
       $.ajax({
         type: 'POST',
         url: '/menu',
@@ -87,10 +98,8 @@
       <span class="navbar-text">
         Welcome, User!
       </span>
-      <span>
-          <form action="/logout" method="post"><input type="submit" value="">logout</form>
-       </span>
-      </div>
+      <form action="/logout" method="post"><input class="btn btn-outline-light" type="submit" value="Log Out"></form>
+    </div>
   </nav>
   <div id="body" class="container col-9 mt-3">
 
@@ -105,7 +114,8 @@
         </div>
         <div class="card-footer text-right">
           <span class="align-middle price">$<%= item.price/100 %></span>
-          <button value="<%= item.id %>,<%= item.name %>,<%= item.price %>" class="btn btn-primary cart">Order</a>
+          <button id="<%= item.id %>" value="<%= item.id %>,<%= item.name %>,<%= item.price %>"
+            class="btn btn-primary cart">Order</a>
         </div>
       </div>
       <% } %>
@@ -126,7 +136,7 @@
                 </tbody>
               </table>
             </section>
-            <input type="hidden" id="order_value" name="order_value" value="0">
+            <input type="hidden" id="order_value" name="order_value">
             <footer class='text-center d-flex mb-2 justify-content-center'>
               <button id="submit_order" type="submit" class="btn btn-primary btn-sm btn-block w-75">Place Order | $<span
                   id="cart_total"></button>
