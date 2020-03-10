@@ -33,6 +33,7 @@ module.exports = (db, io) => {
       .then(() => {
         sendMessage(orderId, status, waitTime);
         io.emit("orderStatusChanged", { status, waitTime });
+        res.end();
       })
       .catch(e => {
         console.error(e);
