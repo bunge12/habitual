@@ -41,8 +41,7 @@ const getAllOrders = function() {
 };
 exports.getAllOrders = getAllOrders;
 
-const getOrderById = function(id) {
-  const values = [parseInt(id)];
+const getLastOrder = function() {
   return db
     .query(
       `
@@ -50,16 +49,16 @@ const getOrderById = function(id) {
       FROM orders
       JOIN order_items ON order_items.order_id = orders.id
       JOIN items ON order_items.item_id = items.id
-      WHERE orders.id = $1;
-  `,
-      values
+      ORDER BY orders.id DESC
+      LIMIT 1;
+  `
     )
     .then(res => {
       const arr = res.rows;
       return { arr };
     });
 };
-exports.getOrderById = getOrderById;
+exports.getLastOrder = getLastOrder;
 
 // place a new order
 const addNewOrder = async function(total_price, arr) {
