@@ -9,7 +9,13 @@
       $.ajax({
         type: 'POST',
         url: `/orders/${id}`,
-        data: form.serialize()
+        data: form.serialize(),
+        complete: function () {
+          $card = $(event.target).closest('.card');
+          $card.remove().prependTo('.completed');
+          $card.find('.card-footer').remove();
+          $card.find('.badge').removeClass('badge-secondary').addClass('badge-danger').html("Cancelled");
+        }
       })
     })
   });
@@ -118,13 +124,15 @@
                     </button>
                   </div>
                 </div>
-                <% } %> <% } %>
+                <% } %>
+                <% } %>
               </div>
 
             </div>
           </div>
 
-          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div class="completed tab-pane fade" id="v-pills-profile" role="tabpanel"
+            aria-labelledby="v-pills-profile-tab">
             <% for (let order of arr) { %>
             <% if (order.status === 'completed') { %>
             <div class="card order mb-2">
