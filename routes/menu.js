@@ -27,10 +27,16 @@ module.exports = (db, io) => {
     // user id
     const { item, order_value } = req.body;
     let queryArr = [];
-    for (let i of item) {
-      let strArr = i.split(",");
+    if (typeof item === "string") {
+      let strArr = item.split(",");
       let obj = { item_id: strArr[0], qty: strArr[1] };
       queryArr.push(obj);
+    } else {
+      for (let i of item) {
+        let strArr = i.split(",");
+        let obj = { item_id: strArr[0], qty: strArr[1] };
+        queryArr.push(obj);
+      }
     }
     // emit io event
     db.addNewOrder(order_value, queryArr)
