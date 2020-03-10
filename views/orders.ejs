@@ -57,26 +57,35 @@
 
                       <input type="text" class="form-control border border-info border-right-0 rounded-left"
                         placeholder="25m" aria-label="Wait time" aria-describedby="button-addon2" maxlength="4" size="4"
-                        required>
+                        required />
                       <div class="input-group-append ">
                         <button class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right"
-                          type="button" id="button-addon2">Accept</button>
+                          type="button" id="button-addon2">
+                          Accept
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <% } %>
-                <% } %>
               </div>
+              <% } %>
+              <% } %>
+            </div>
 
-              <div class="col-6">
-                <% for (let item of arr) { %>
-                <% if (item.status === 'accepted') { %>
+            <div class="col-6">
+              <% for (let item of arr) { %>
+              <% if (item.status === 'accepted') { %>
+              <div class="card order mb-2">
+                <div class="card-header">
+                  <span class="align-middle mr-1">Order #<%= item.id %></span>
+                  <span class="badge badge-pill badge-info">Accepted</span>
+                  <span class="float-right">$<%= item.total_price/100 %></span>
+                </div>
                 <div class="card order mb-2">
                   <div class="card-header">
-                    <span class="align-middle mr-1">Order #<%= item.id %></span>
+                    <span class="align-middle mr-1">Order #1005</span>
                     <span class="badge badge-pill badge-info">Accepted</span>
-                    <span class="float-right">$<%= item.total_price/100 %></span>
+                    <span class="float-right">$45.99</span>
                   </div>
                   <div class="card-body">
                     <ul>
@@ -86,34 +95,75 @@
                     </ul>
                   </div>
                   <div class="card-footer">
-                    <button type="button" class="btn-sm btn-outline-success float-right">Complete Order</button>
+                    <button type="button" class="btn-sm btn-outline-success float-right">
+                      Complete Order
+                    </button>
                   </div>
                 </div>
-                <% } %>
-                <% } %>
+                <div class="card order mb-2">
+                  <div class="card-header">
+                    <span class="align-middle mr-1">Order #1005</span>
+                    <span class="badge badge-pill badge-info">Accepted</span>
+                    <span class="float-right">$45.99</span>
+                  </div>
+                  <div class="card-body">
+                    <ul>
+                      <li>Burger</li>
+                      <li>Vodka</li>
+                      <li>Fries</li>
+                    </ul>
+                  </div>
+                  <div class="card-footer">
+                    <button type="button" class="btn-sm btn-outline-success float-right">
+                      Complete Order
+                    </button>
+                  </div>
+                </div>
               </div>
+              <% } %>
+              <% } %>
             </div>
-
-
-
-
-
-
-
           </div>
-          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-            <div class="card order mb-2">
-              <div class="card-header">
-                <span class="align-middle mr-1">Order #1003</span>
-                <span class="badge badge-pill badge-success">Completed</span>
-                <span class="float-right">$45.99</span>
-              </div>
-              <div class="card-body">
-                <ul>
-                  <li>Vodka</li>
-                  <li>Fries</li>
-                </ul>
-              </div>
+
+
+
+
+
+
+
+        </div>
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div class="card order mb-2">
+            <div class="card-header">
+              <span class="align-middle mr-1">Order #1003</span>
+              <span class="badge badge-pill badge-success">Completed</span>
+              <span class="float-right">$45.99</span>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Vodka</li>
+                <li>Fries</li>
+              </ul>
+            </div>
+          </div>
+          <div class="card order mb-2">
+            <div class="card-header">
+              <span class="align-middle mr-1">Order #1002</span>
+              <span class="badge badge-pill badge-danger">Cancelled</span>
+              <span class="float-right">$45.99</span>
+            </div>
+            <div class="card-body">
+              <ul>
+                <li>Burger</li>
+                <li>Vodka</li>
+                <li>Fries</li>
+                <li>Burger</li>
+                <li>Vodka</li>
+                <li>Fries</li>
+                <li>Burger</li>
+                <li>Vodka</li>
+                <li>Fries</li>
+              </ul>
             </div>
             <div class="card order mb-2">
               <div class="card-header">
@@ -150,10 +200,10 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
+  </div>
 
   </div>
 

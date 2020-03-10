@@ -57,14 +57,14 @@ app.use(
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
-const orderRoutes = require("./routes/order");
-const restaurantsRoutes = require("./routes/restaurants");
+const menuRoutes = require("./routes/menu");
+const ordersRoutes = require("./routes/orders");
 const indexRoutes = require("./routes/index");
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
-app.use("/order", orderRoutes(db, io));
-app.use("/restaurants", restaurantsRoutes(db, io));
+app.use("/menu", menuRoutes(db, io));
+app.use("/orders", ordersRoutes(db, io));
 app.use("/", indexRoutes());
 // Note: mount other resources here, using the same pattern above
 
