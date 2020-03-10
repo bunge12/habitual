@@ -24,12 +24,9 @@ module.exports = (db, io) => {
   });
 
   // place the order
-  //! need the changeOrderStatus(orderId, status[,waitTime]) from db, should receive 2 or 3 params
   router.put("/:orderid", (req, res) => {
     const orderId = req.params.orderid;
     const { status, waitTime } = req.body;
-    console.log(req.body);
-    console.log(orderId);
 
     // send sms and emit io event
     db.changeOrderStatus(orderId, status, waitTime)
