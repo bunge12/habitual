@@ -76,7 +76,7 @@
       event.preventDefault();
       let form = $(this);
       let data = form.serialize();
-      console.log("Serialized data: ", data)
+      // console.log("Serialized data: ", data)
       $("#cart_header").html("Your order was sent!")
       $("#submit_order").html("Waiting for Restaurant to Accept Order").addClass("btn btn-warning").attr("disabled", "disabled");
       $(document.body).find("button").attr("disabled", "disabled");
