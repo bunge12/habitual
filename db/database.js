@@ -79,7 +79,7 @@ exports.addNewOrder = addNewOrder;
 
 const changeOrderStatus = function (orderId, status, waitTime) {
   let query = "";
-  if (waitTime) {
+  if (typeof waitTime !== null && waitTime !== '') {
     query = `
     UPDATE orders SET status = '${status}', wait_time = '${waitTime}'
     WHERE orders.id = '${orderId}';`;
