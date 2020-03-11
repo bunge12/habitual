@@ -2,7 +2,7 @@
 <script>
   $(document).ready(function () {
 
-    $(document.body).on('click', '.cancel', function () {
+    $(document.body).on('submit', '.cancel', function () {
       event.preventDefault();
       let form = $(this);
       const id = $(event.target).closest('form').find('button').attr('id').slice(1);
