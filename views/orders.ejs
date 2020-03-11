@@ -125,6 +125,29 @@
                     </form>
                   </div>
                 </div>
+                <hr />
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <form action="/orders/<%= order.orderid %>" method="POST" class="new_buttons">
+                  <input type="hidden" name="_method" value="PUT">
+                  <button class="btn btn-outline-danger" type="submit" name="cancel">Cancel</button>
+                  <button class="btn btn-outline-success" type="button" data-toggle="collapse"
+                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                    Accept
+                  </button>
+                  <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                      <input type="text" class="form-control" maxlength="2" size="2" name="waitTime">
+                      <button class="btn btn-success" type="submit" name="accept">Accept Order</button>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
             <% } %>
