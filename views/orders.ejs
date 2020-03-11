@@ -23,10 +23,16 @@
       event.preventDefault();
       let form = $(this);
       const id = $(event.target).closest('form').find('button').attr('id').slice(1);
-      const $button =
-        `<button type="button" class="btn-sm btn-outline-success float-right">
-          Complete Order
-        </button>`;
+      const $footer = $(
+        `<div class="card-footer complete-order">
+          <form action="/orders/${id}" method="POST" class="complete">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="status" value="completed">
+            <button id="com${id}" type="submit" class="btn-sm btn-outline-success float-right">
+              Complete Order
+            </button>
+          </form>
+        </div>`);
       $.ajax({
         type: 'POST',
         url: `/orders/${id}`,
@@ -34,8 +40,9 @@
         complete: function () {
           let $card = $(document.body).find(`#div${id}`);
           $card.remove().prependTo('.accepted');
-          $card.find('.pending-buttons').html($button);
+          $card.find('.card-footer.pending').remove()
           $card.find('.badge').removeClass('badge-secondary').addClass('badge-info').html("Accepted");
+          $card.append($footer);
         }
       })
     });
@@ -170,7 +177,6 @@
                 <form action="/orders/<%= order.orderid %>" method="POST" class="complete">
                   <input type="hidden" name="_method" value="PUT">
                   <input type="hidden" name="status" value="completed">
-                  <input type="hidden" name="waitTime" value="null">
                   <button id="com<%= order.orderid %>" type="submit" class="btn-sm btn-outline-success float-right">
                     Complete Order
                   </button>
