@@ -20,6 +20,11 @@ $(() => {
         if (timeLeft < 0) {
           clearInterval(intervalId);
           $("#cart_header").html("Checkout your order!");
+          $("#cart_header").append(`<audio id="orderReadySound">
+          <source src="audio/alert1.mp3" type="audio/mpeg">
+          </audio>
+          `);
+          $("audio#orderReadySound")[0].play();
         }
       };
 
