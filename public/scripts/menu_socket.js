@@ -15,11 +15,11 @@ $(() => {
         }
         let str = `${minutes} min ${seconds} sec.`;
 
-        $("#cart_header").html(`Ready in ${str}`);
+        $("#cart_header").html(`Ready in  ${str}`);
 
         if (timeLeft < 0) {
           clearInterval(intervalId);
-          $("#cart_header").html("Checkout your order!");
+          $("#cart_header").html("Your order is ready to pick up!");
           $("#cart_header").append(`<audio id="orderReadySound">
           <source src="audio/alert1.mp3" type="audio/mpeg">
           </audio>
@@ -40,13 +40,13 @@ $(() => {
         .addClass("btn btn-success");
     }
     if (data.status === "cancelled") {
-      $("#cart_header").html("Your order has been cancelled.");
+      $("#cart_header").html("Sorry, your order has been cancelled.");
       $("#submit_order")
         .html("Order Cancelled.")
         .addClass("btn btn-danger text-white");
     }
     if (data.status === "completed") {
-      $("#cart_header").html("Your order is ready!");
+      $("#cart_header").html("Your order is completed.");
       $("#submit_order")
         .html("Order Completed.")
         .addClass("btn btn-info text-white");
