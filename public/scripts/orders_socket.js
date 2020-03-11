@@ -2,12 +2,6 @@ $(() => {
   let socket = io();
   socket.on("orderStatusChanged", function(data) {
     if (data.status === "pending") {
-      $("div#body").append(`<audio id="orderComingSound">
-      <source src="audio/alert2.mp3" type="audio/mpeg">
-      </audio>
-      `;
-      $("audio#orderComingSound")[0].play();
-
       $.ajax("/orders/last", { method: "GET" }).then(function(data) {
         let $order = `
           <div class="card order mb-2" id="div${data.orderid}">
