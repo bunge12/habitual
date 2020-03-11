@@ -13,10 +13,10 @@ $(() => {
   `);
 
   let socket = io();
-  socket.on("orderStatusChanged", function(data) {
+  socket.on("orderStatusChanged", function (data) {
     console.log(data);
     if (data.status === "accepted") {
-      const makeTimer = function(completeTime) {
+      const makeTimer = function (completeTime) {
         let timeLeft = (completeTime - Date.now()) / 1000;
         let minutes = Math.floor(timeLeft / 60);
         let seconds = Math.floor(timeLeft - minutes * 60);
@@ -40,7 +40,7 @@ $(() => {
 
       const completeTime = Date.now() + data.waitTime * 60 * 1000;
 
-      const intervalId = setInterval(function() {
+      const intervalId = setInterval(function () {
         makeTimer(completeTime);
       }, 1000);
 
@@ -50,7 +50,7 @@ $(() => {
         .html("Order Accepted!")
         .removeClass("btn btn-warning")
         .addClass("btn btn-success");
-      $toast = `<div class="toast" data-delay="7000" style="position: fixed;
+      $toast = `<div class="toast accepted-toast" data-delay="7000" style="position: fixed;
         bottom: 9rem;
         right: 1rem;
         z-index: 9999;
@@ -65,7 +65,7 @@ $(() => {
         </div>
       </div>`;
       $(body).prepend($toast);
-      $(".toast").toast("show");
+      $(".toast.accepted-toast").toast("show");
     }
     if (data.status === "cancelled") {
       $("div#body audio#orderCancelSound")[0].play();
@@ -74,7 +74,7 @@ $(() => {
       $("#submit_order")
         .html("Order Cancelled.")
         .addClass("btn btn-danger text-white");
-      $toast = `<div class="toast" data-delay="7000" style="position: fixed;
+      $toast = `<div class="toast cancelled-toast" data-delay="7000" style="position: fixed;
         bottom: 9rem;
         right: 1rem;
         z-index: 9999;
@@ -89,7 +89,7 @@ $(() => {
         </div>
       </div>`;
       $(body).prepend($toast);
-      $(".toast").toast("show");
+      $(".toast.cancelled-toast").toast("show");
     }
     if (data.status === "completed") {
       console.log("in completed");
@@ -97,7 +97,7 @@ $(() => {
       $("#submit_order")
         .html("Order Completed.")
         .addClass("btn btn-info text-white");
-      $toast = `<div class="toast" data-delay="7000" style="position: fixed;
+      $toast = `<div class="toast completed-toast" data-delay="7000" style="position: fixed;
         bottom: 9rem;
         right: 1rem;
         z-index: 9999;
@@ -112,7 +112,7 @@ $(() => {
         </div>
       </div>`;
       $(body).prepend($toast);
-      $(".toast").toast("show");
+      $(".toast.completed-toast").toast("show");
     }
   });
 });
