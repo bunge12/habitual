@@ -5,9 +5,9 @@ $(() => {
       $.ajax('/orders/last', { method: 'GET' })
         .then(function (data) {
           let $order = `
-          <div class="card order mb-2">
+          <div class="card order mb-2" id="div${data.orderid}">
           <div class="card-header">
-            <span class="align-middle mr-1">Order ${data.orderid}
+            <span class="align-middle mr-1">Order #${data.orderid}
             </span>
             <span class="badge badge-pill badge-secondary">Pending</span>
             <span class="float-right">$${data.total_price / 100}</span>
