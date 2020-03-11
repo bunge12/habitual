@@ -6,7 +6,6 @@
       event.preventDefault();
       let form = $(this);
       const id = $(event.target).closest('form').find('button').attr('id').slice(1);
-      console.log(form.serialize());
       $.ajax({
         type: 'POST',
         url: `/orders/${id}`,
@@ -20,29 +19,27 @@
       })
     });
 
-    $(".accept").submit(function (event) {
+    $(document.body).on('submit', '.accept', function () {
       event.preventDefault();
       let form = $(this);
       const id = $(event.target).closest('form').find('button').attr('id').slice(1);
       const $button =
-        `
-        <button type="button" class="btn-sm btn-outline-success float-right">
+        `<button type="button" class="btn-sm btn-outline-success float-right">
           Complete Order
-        </button>
-         `;
-
+        </button>`;
       $.ajax({
         type: 'POST',
         url: `/orders/${id}`,
         data: form.serialize(),
         complete: function () {
-          $card = $(event.target).closest('.card');
+          let $card = $(document.body).find(`#div${id}`);
           $card.remove().prependTo('.accepted');
           $card.find('.pending-buttons').html($button);
           $card.find('.badge').removeClass('badge-secondary').addClass('badge-info').html("Accepted");
         }
       })
-    })
+    });
+
   });
 </script>
 
@@ -104,7 +101,7 @@
                 </ul>
               </div>
               <div class="card-footer pending">
-                <div class="input-group col-5 float-right pr-0 pending-buttons" style="max-width: 13rem;">
+                <div class="input-group col-6 float-right pr-0 pending-buttons" style="max-width: 13rem;">
                   <form action="/orders/<%= order.orderid %>" method="POST" class="cancel">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="status" value="cancelled">
@@ -136,11 +133,12 @@
             <% } %>
 
           </div>
-          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+          <div class="tab-pane fade accepted" id="v-pills-profile" role="tabpanel"
+            aria-labelledby="v-pills-profile-tab">
 
             <% for (let order of arr) { %>
             <% if (order.status === 'accepted') { %>
-            <div class="card order mb-2">
+            <div class="card order mb-2" id="div<%= order.orderid %>">
               <div class="card-header">
                 <span class="align-middle mr-1">Order #<%= order.orderid %></span>
                 <span class="badge badge-pill badge-info">Accepted</span>
