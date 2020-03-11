@@ -4,10 +4,13 @@ $(() => {
     <source src="audio/alert2.mp3" type="audio/mpeg">
     </audio>
   `);
+  $(document).on("click", function() {
+    document.title = "Habitual App";
+  });
   let socket = io();
-  socket.on("orderStatusChanged", function (data) {
+  socket.on("orderStatusChanged", function(data) {
     if (data.status === "pending") {
-      $.ajax("/orders/last", { method: "GET" }).then(function (data) {
+      $.ajax("/orders/last", { method: "GET" }).then(function(data) {
         let $order = `
         <div class="card order mb-2" id="div${data.orderid}">
         <div class="card-header">
@@ -82,8 +85,10 @@ $(() => {
       </div>`;
         $(".pen_ord").prepend($order);
         $(body).prepend($toast);
-        $('.toast').toast('show');
+        $(".toast").toast("show");
         $("div#body audio#orderComingSound")[0].play();
+
+        document.title = "New pending order coming, checkout the orders.";
       });
     }
   });
