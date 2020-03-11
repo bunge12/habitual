@@ -1,8 +1,22 @@
 $(() => {
+  $("div#body").append(`<audio id="orderAcceptSound">
+  <source src="audio/alert1.mp3" type="audio/mpeg">
+  </audio>
+  `);
+  $("div#body").append(`<audio id="orderReadySound">
+  <source src="audio/alert3.mp3" type="audio/mpeg">
+  </audio>
+  `);
+  $("div#body").append(`<audio id="orderCancelSound">
+  <source src="audio/alert4.mp3" type="audio/mpeg">
+  </audio>
+  `);
+
   let socket = io();
-  socket.on("orderStatusChanged", function (data) {
+  socket.on("orderStatusChanged", function(data) {
+    console.log(data);
     if (data.status === "accepted") {
-      const makeTimer = function (completeTime) {
+      const makeTimer = function(completeTime) {
         let timeLeft = (completeTime - Date.now()) / 1000;
         let minutes = Math.floor(timeLeft / 60);
         let seconds = Math.floor(timeLeft - minutes * 60);
@@ -19,20 +33,18 @@ $(() => {
 
         if (timeLeft < 0) {
           clearInterval(intervalId);
+          $("div#body audio#orderReadySound")[0].play();
           $("#cart_header").html("Your order is ready to pick up!");
-          $("#cart_header").append(`<audio id="orderReadySound">
-          <source src="audio/alert1.mp3" type="audio/mpeg">
-          </audio>
-          `);
-          $("audio#orderReadySound")[0].play();
         }
       };
 
       const completeTime = Date.now() + data.waitTime * 60 * 1000;
 
-      const intervalId = setInterval(function () {
+      const intervalId = setInterval(function() {
         makeTimer(completeTime);
       }, 1000);
+
+      $("div#body audio#orderAcceptSound")[0].play();
 
       $("#submit_order")
         .html("Order Accepted!")
@@ -53,9 +65,11 @@ $(() => {
         </div>
       </div>`;
       $(body).prepend($toast);
-      $('.toast').toast('show');
+      $(".toast").toast("show");
     }
     if (data.status === "cancelled") {
+      $("div#body audio#orderCancelSound")[0].play();
+
       $("#cart_header").html("Sorry, your order has been cancelled.");
       $("#submit_order")
         .html("Order Cancelled.")
@@ -75,9 +89,10 @@ $(() => {
         </div>
       </div>`;
       $(body).prepend($toast);
-      $('.toast').toast('show');
+      $(".toast").toast("show");
     }
     if (data.status === "completed") {
+      console.log("in completed");
       $("#cart_header").html("Your order is completed.");
       $("#submit_order")
         .html("Order Completed.")
@@ -97,7 +112,7 @@ $(() => {
         </div>
       </div>`;
       $(body).prepend($toast);
-      $('.toast').toast('show');
+      $(".toast").toast("show");
     }
   });
 });
