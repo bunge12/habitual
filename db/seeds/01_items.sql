@@ -15,7 +15,7 @@ VALUES
   ('Tequila Shots', 'desc', 350, 'https://images2.minutemediacdn.com/image/upload/c_crop,h_1191,w_2121,x_0,y_127/f_auto,q_auto,w_1100/v1554918768/shape/mentalfloss/50420-istock-692856274.jpg'),
   ('Vodka Shots', 'Taste the rainbow!', 350, 'https://images-gmi-pmc.edge-generalmills.com/873a210c-01ca-4b0c-b318-73c2c0e2d033.jpg'),
   ('Rail Shots', 'Our signature house pours', 300, 'https://cdn.postgradproblems.com/wp-content/uploads/2018/05/dcb5c5b5204aa080352d4b26b3a2942f.jpg'),
-  ('Margarita', 'Tequila, Orange liqueur, and Lime Juice', 799, 'https://www.liquor.com/thmb/VaxT36mtuFQaZYKNRkmTVyl1fo4=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/__opt__aboutcom__coeus__resources__content_migration__liquor__2017__07__05150949__Frozen-Margarita-720x720-recipe-59566ae60c504508906963b1de69ad25.jpg'),
+  ('Margarita', 'Tequila, Orange liqueur, and Lime Juice', 799, 'http://assets.kraftfoods.com/recipe_images/opendeploy/536956_2_1_retail-255061fbcc4d17fdbfa23143ef0ec994b9fe2007_642x428.jpg'),
   ('Baijiu', 'Best-Selling Chinese White Liquor', 1500, 'http://www.womenofchina.cn/res/womenofchina/1612/16123866.jpg'),
   ('Icecream', 'Icy and creamy!', 159, 'https://images.pexels.com/photos/3631/summer-dessert-sweet-ice-cream.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
   ('Lollipops', 'Candy flavoured', 059, 'https://images.pexels.com/photos/40834/eat-sugar-calories-food-40834.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
