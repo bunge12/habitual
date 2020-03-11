@@ -61,8 +61,23 @@ $(() => {
             </form>
           </div>
           `;
-
+        $toast = `<div class="toast" data-autohide="false" style="position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        z-index: 999;
+        width: 40%;">
+        <div class="toast-header">
+          <strong class="mr-auto text-primary">New Order Alert</strong>
+          <small class="text-muted">Just now!</small>
+          <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+        </div>
+        <div class="toast-body">
+          Order #${data.orderid} has just been submitted. Please check the pending orders tab in order to accept or cancel the order.
+        </div>
+      </div>`;
         $(".pen_ord").prepend($order);
+        $(body).prepend($toast);
+        $('.toast').toast('show');
         $("div#body").append(`<audio id="orderComingSound">
          <source src="audio/alert2.mp3" type="audio/mpeg">
       </audio>`);
