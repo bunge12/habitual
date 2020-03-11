@@ -1,6 +1,7 @@
 <%- include('partials/_header') %>
 <script>
   $(document).ready(function () {
+    let $button;
 
     $(document.body).on('submit', '.cancel', function () {
       event.preventDefault();
@@ -116,38 +117,23 @@
                     <form action="/orders/<%= order.orderid %>" method="POST" class="accept">
                       <input type="hidden" name="_method" value="PUT">
                       <input type="hidden" name="status" value="accepted">
-                      <input type="text" class="form-control border border-info border-right-0 rounded-left"
-                        placeholder="25m" name="waitTime" aria-label="Wait time" maxlength="4" size="4" required />
-                      <button id="a<%= order.orderid %>"
-                        class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right" type="submit">
+
+                      <button id="a<%= order.orderid %>" class="btn btn-sm btn-outline-success" type="button"
+                        data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                        aria-controls="collapseExample">
                         Accept
                       </button>
+                      <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                          <input type="text" class="form-control" placeholder="25m" name="waitTime" maxlength="4"
+                            size="4" required />
+                          <button class="btn btn-sm btn-success" type="submit" name="accept">Accept
+                            Order</button>
+                        </div>
+                      </div>
                     </form>
                   </div>
                 </div>
-                <hr />
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
-                <form action="/orders/<%= order.orderid %>" method="POST" class="new_buttons">
-                  <input type="hidden" name="_method" value="PUT">
-                  <button class="btn btn-outline-danger" type="submit" name="cancel">Cancel</button>
-                  <button class="btn btn-outline-success" type="button" data-toggle="collapse"
-                    data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    Accept
-                  </button>
-                  <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                      <input type="text" class="form-control" maxlength="2" size="2" name="waitTime">
-                      <button class="btn btn-success" type="submit" name="accept">Accept Order</button>
-                    </div>
-                  </div>
-                </form>
               </div>
             </div>
             <% } %>
