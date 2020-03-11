@@ -75,10 +75,6 @@ app.use("/logout", logoutRoutes());
 //   res.redirect("/");
 // });
 
-io.on("connection", function(socket) {
-  console.log("=====\n", socket.id);
-});
-
 http.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT} 😀`);
 });

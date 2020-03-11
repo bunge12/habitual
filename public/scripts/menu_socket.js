@@ -1,10 +1,11 @@
 $(() => {
   let socket = io();
-  socket.on("orderStatusChanged", function (data) {
+  socket.on("orderStatusChanged", function(data) {
     if (data.status === "accepted") {
       $("#cart_header").html(`Ready in ${data.waitTime} minutes!`);
       $("#submit_order")
         .html("Order Accepted!")
+
         .removeClass("btn btn-warning")
         .addClass("btn btn-success");
     }
@@ -13,6 +14,12 @@ $(() => {
       $("#submit_order")
         .html("Order Cancelled.")
         .addClass("btn btn-danger text-white");
+    }
+    if (data.status === "completed") {
+      $("#cart_header").html("Your order is ready!");
+      $("#submit_order")
+        .html("Order Completed.")
+        .addClass("btn btn-success text-white");
     }
   });
 });
