@@ -103,7 +103,17 @@
     </div>
   </nav>
   <div id="body" class="container col-9 mt-3">
-
+    <style>
+      td {
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+      }
+    </style>
     <div class="card-columns">
 
       <% for (let item of arr) { %>
