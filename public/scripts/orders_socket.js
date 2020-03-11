@@ -49,6 +49,10 @@ $(() => {
         // let newHTML = concat($order, $order2);
         $(".pen_ord").prepend($order);
       });
+      $("div#body").append(`<audio id="orderComingSound">
+      <source src="audio/alert2.mp3" type="audio/mpeg">
+      </audio>`);
+      $("div#body audio#orderComingSound")[0].play();
     }
   });
 });
