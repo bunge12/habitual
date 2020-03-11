@@ -1,4 +1,9 @@
 $(() => {
+  $("div#body").append(`
+    <audio id="orderComingSound">
+    <source src="audio/alert2.mp3" type="audio/mpeg">
+    </audio>
+  `);
   let socket = io();
   socket.on("orderStatusChanged", function (data) {
     if (data.status === "pending") {
@@ -61,7 +66,7 @@ $(() => {
             </form>
           </div>
           `;
-        $toast = `<div class="toast" data-autohide="false" style="position: fixed;
+        $toast = `<div class="toast" data-delay="7000" style="position: fixed;
         bottom: 1rem;
         right: 1rem;
         z-index: 999;
@@ -78,9 +83,6 @@ $(() => {
         $(".pen_ord").prepend($order);
         $(body).prepend($toast);
         $('.toast').toast('show');
-        $("div#body").append(`<audio id="orderComingSound">
-         <source src="audio/alert2.mp3" type="audio/mpeg">
-      </audio>`);
         $("div#body audio#orderComingSound")[0].play();
       });
     }
