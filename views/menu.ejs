@@ -63,6 +63,7 @@
 
       if (newQty === 0) {
         $(event.target).parents("tr").remove();
+        $(`#${itemId}`).removeClass("btn-outline-success").addClass("btn-primary").prop("disabled", false).html("Order");
         $(event.target).parents("tr").find("input").remove();
         updateCart(deduct);
       } else {
