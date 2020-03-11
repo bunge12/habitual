@@ -5,7 +5,6 @@ $(() => {
       $("#cart_header").html(`Ready in ${data.waitTime} minutes!`);
       $("#submit_order")
         .html("Order Accepted!")
-
         .removeClass("btn btn-warning")
         .addClass("btn btn-success");
     }
@@ -19,7 +18,7 @@ $(() => {
       $("#cart_header").html("Your order is ready!");
       $("#submit_order")
         .html("Order Completed.")
-        .addClass("btn btn-success text-white");
+        .addClass("btn btn-info text-white");
     }
   });
 });
