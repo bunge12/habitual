@@ -1,7 +1,6 @@
 <%- include('partials/_header') %>
 <script>
   $(document).ready(function () {
-    let $button;
 
     $(document.body).on('submit', '.cancel', function () {
       event.preventDefault();
@@ -36,8 +35,7 @@
           let $card = $(document.body).find(`#div${id}`);
           $card.remove().prependTo('.accepted');
           $card.find('.pending-buttons').html($button);
-          $card.find('.input-group-append').remove();
-
+          $card.find('.collapse').remove();
           $card.find('.badge').removeClass('badge-secondary').addClass('badge-info').html("Accepted");
         }
       })
@@ -121,15 +119,15 @@
                         <input type="hidden" name="_method" value="PUT">
                         <input type="hidden" name="status" value="accepted">
                         <button id="a<%= order.orderid %>" class="btn btn-sm btn-outline-success" type="button"
-                          data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
-                          aria-controls="collapseExample">
+                          data-toggle="collapse" data-target="#collapseExample<%= order.orderid %>"
+                          aria-expanded="false" aria-controls="collapseExample">
                           Accept
                         </button>
                     </div>
                   </div>
                 </span>
               </div>
-              <div class="collapse" id="collapseExample">
+              <div class="collapse" id="collapseExample<%= order.orderid %>">
                 <div class="card card-body">
                   <div class="form-row">
                     <div class="col-4 text-right align-bottom mt-1">

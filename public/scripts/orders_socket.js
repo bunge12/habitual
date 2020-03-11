@@ -6,46 +6,63 @@ $(() => {
         .then(function (data) {
           let $order = `
           <div class="card order mb-2" id="div${data.orderid}">
-          <div class="card-header">
-            <span class="align-middle mr-1">Order #${data.orderid}
-            </span>
-            <span class="badge badge-pill badge-secondary">Pending</span>
-            <span class="float-right">$${data.total_price / 100}</span>
-          </div>
-          <div class="card-body">
-            <ul>`;
+              <div class="card-header">
+                <span class="align-middle mr-1">Order #${data.orderid}
+                </span>
+                <span class="badge badge-pill badge-secondary">Pending</span>
+                <span class="float-right">$${data.total_price / 100}</span>
+              </div>
+              <div class="card-body">
+                <ul>`;
           for (let item of data.items) {
             $order += `<li>${item.qty} x ${item.name}</li>`;
           }
           $order += `</ul>
           </div>
-          <div class="card-footer">
-            <div class="input-group col-5 float-right pr-0 pending-buttons" style="max-width: 13rem;">
-              <form action="/orders/${data.orderid}" method="POST" class="cancel">
-                <input type="hidden" name="_method" value="PUT">
-                <input type="hidden" name="status" value="cancelled">
-                <input type="hidden" name="waitTime" value="null">
-                <button id="c${data.orderid}"
-                  class="btn-sm btn-outline-danger float-right mr-2 cancel_button" type="submit">
-                  Cancel
-                </button>
-              </form>
+          <div class="card-footer pending">
+            <span class="float-right">
+              <div class="input-group pending-buttons">
+                <form action="/orders/${data.orderid}" method="POST" class="cancel">
+                  <input type="hidden" name="_method" value="PUT">
+                  <input type="hidden" name="status" value="cancelled">
+                  <input type="hidden" name="waitTime" value="null">
+                  <button id="c${data.orderid}"
+                    class="btn-sm btn-outline-danger float-right mr-2 cancel_button" type="submit">
+                    Cancel
+                  </button>
+                </form>
 
-              <div class="input-group-append">
-                    <form action="/orders/${data.orderid}" method="POST" class="accept">
-                      <input type="hidden" name="_method" value="PUT">
-                      <input type="hidden" name="status" value="accepted">
-                      <input type="text" class="form-control border border-info border-right-0 rounded-left"
-                        placeholder="25m" name="waitTime" aria-label="Wait time" maxlength="4" size="4" required />
-                      <button id="a${data.orderid}"
-                        class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right" type="submit">
-                        Accept
-                      </button>
-                    </form>
-                  </div>
-
+                <div class="input-group-append">
+                  <form action="/orders/${data.orderid}" method="POST" class="accept">
+                    <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="status" value="accepted">
+                    <button id="a${data.orderid}" class="btn btn-sm btn-outline-success" type="button"
+                      data-toggle="collapse" data-target="#collapseExample${data.orderid}" aria-expanded="false"
+                      aria-controls="collapseExample">
+                      Accept
+                    </button>
+                </div>
+              </div>
+            </span>
+          </div>
+          <div class="collapse" id="collapseExample${data.orderid}">
+            <div class="card card-body">
+              <div class="form-row">
+                <div class="col-4 text-right align-bottom mt-1">
+                  Enter wait time
+                </div>
+                <div class="col-4">
+                  <input type="text" class="form-control form-control-sm" placeholder="(minutes)" name="waitTime"
+                    maxlength="2" size="2" required />
+                </div>
+                <div class="col-4">
+                  <button class="btn btn-sm btn-success" type="submit" name="accept">Accept
+                    Order</button>
+                </div>
+              </div>
             </div>
           </div>
+          </form>
         </div>`;
           // let newHTML = concat($order, $order2);
           $(".pen_ord").prepend($order);
