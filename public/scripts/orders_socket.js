@@ -4,8 +4,6 @@ $(() => {
     if (data.status === "pending") {
       $.ajax('/orders/last', { method: 'GET' })
         .then(function (data) {
-          // $(document.body).replaceWith(data);
-          console.log("data", data.orderid)
           let $order = `
           <div class="card order mb-2">
           <div class="card-header">
@@ -46,7 +44,7 @@ $(() => {
           </div>
         </div>`;
           // let newHTML = concat($order, $order2);
-          $(document.body).append($order);
+          $(".pen_ord").prepend($order);
         });
     }
   });
