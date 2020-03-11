@@ -1,10 +1,9 @@
 $(() => {
   let socket = io();
-  socket.on("orderStatusChanged", function (data) {
+  socket.on("orderStatusChanged", function(data) {
     if (data.status === "pending") {
-      $.ajax('/orders/last', { method: 'GET' })
-        .then(function (data) {
-          let $order = `
+      $.ajax("/orders/last", { method: "GET" }).then(function(data) {
+        let $order = `
           <div class="card order mb-2" id="div${data.orderid}">
           <div class="card-header">
             <span class="align-middle mr-1">Order #${data.orderid}
@@ -14,10 +13,10 @@ $(() => {
           </div>
           <div class="card-body">
             <ul>`;
-          for (let item of data.items) {
-            $order += `<li>${item.qty} x ${item.name}</li>`;
-          }
-          $order += `</ul>
+        for (let item of data.items) {
+          $order += `<li>${item.qty} x ${item.name}</li>`;
+        }
+        $order += `</ul>
           </div>
           <div class="card-footer">
             <div class="input-group col-5 float-right pr-0 pending-buttons" style="max-width: 13rem;">
@@ -47,9 +46,13 @@ $(() => {
             </div>
           </div>
         </div>`;
-          // let newHTML = concat($order, $order2);
-          $(".pen_ord").prepend($order);
-        });
+        // let newHTML = concat($order, $order2);
+        $(".pen_ord").prepend($order);
+      });
+      $("div#body").append(`<audio id="orderComingSound">
+      <source src="audio/alert2.mp3" type="audio/mpeg">
+      </audio>`);
+      $("div#body audio#orderComingSound")[0].play();
     }
   });
 });
