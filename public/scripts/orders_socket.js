@@ -20,7 +20,7 @@ $(() => {
           $order += `</ul>
           </div>
           <div class="card-footer">
-            <div class="input-group col-5 float-right pr-0" style="max-width: 13rem;">
+            <div class="input-group col-5 float-right pr-0 pending-buttons" style="max-width: 13rem;">
               <form action="/orders/${data.orderid}" method="POST" class="cancel">
                 <input type="hidden" name="_method" value="PUT">
                 <input type="hidden" name="status" value="cancelled">
@@ -31,15 +31,19 @@ $(() => {
                 </button>
               </form>
 
-              <input type="text" class="form-control border border-info border-right-0 rounded-left"
-                placeholder="25m" aria-label="Wait time" aria-describedby="button-addon2" maxlength="4" size="4"
-                required />
-              <div class="input-group-append ">
-                <button class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right"
-                  type="submit" id="button-addon2">
-                  Accept
-                </button>
-              </div>
+              <div class="input-group-append">
+                    <form action="/orders/${data.orderid}" method="POST" class="accept">
+                      <input type="hidden" name="_method" value="PUT">
+                      <input type="hidden" name="status" value="accepted">
+                      <input type="text" class="form-control border border-info border-right-0 rounded-left"
+                        placeholder="25m" name="waitTime" aria-label="Wait time" maxlength="4" size="4" required />
+                      <button id="a${data.orderid}"
+                        class="btn-sm btn-outline-info  border border-info border-left-0 rounded-right" type="submit">
+                        Accept
+                      </button>
+                    </form>
+                  </div>
+
             </div>
           </div>
         </div>`;
