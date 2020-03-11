@@ -42,7 +42,7 @@
         complete: function () {
           let $card = $(document.body).find(`#div${id}`);
           $card.remove().prependTo('.accepted');
-          $card.find('.pending-buttons').html($button);
+          $card.find('.card-footer.pending').remove();
           $card.find('.collapse').remove();
           $card.find('.badge').removeClass('badge-secondary').addClass('badge-info').html("Accepted");
           $card.append($footer);
