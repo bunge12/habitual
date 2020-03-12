@@ -11,7 +11,7 @@ This project was created and published by me, [shuchitama](https://github.com/sh
 - Customers can add and remove products from the cart, and modify quantities in the cart
 - Restaurants can see all orders divided by their status (pending, accepted, completed, cancelled)
 - Restaurants are notified by an audio & in-browser notification about new orders
-- Customers are informed about their order status through visual, auduio, and SMS notifications
+- Customers are informed about their order status through visual, audio, and SMS notifications
 
 ## Stack
 
@@ -21,7 +21,8 @@ This project was created and published by me, [shuchitama](https://github.com/sh
 
 ## Screenshots
 
-
+!["Adding items to the cart and placing an order"](https://github.com/bunge12/habitual/blob/master/docs/place_order.gif?raw=true)
+!["Restaurant and customer both recieve notifications when an order status changes"](https://github.com/bunge12/habitual/blob/master/docs/notifications.gif?raw=true)
 
 ## Dependencies
 
