@@ -11,12 +11,11 @@ $(() => {
   <source src="audio/alert4.mp3" type="audio/mpeg">
   </audio>
   `);
-
+  let intervalId;
   let socket = io();
-  socket.on("orderStatusChanged", function (data) {
-    console.log(data);
+  socket.on("orderStatusChanged", function(data) {
     if (data.status === "accepted") {
-      const makeTimer = function (completeTime) {
+      const makeTimer = function(completeTime) {
         let timeLeft = (completeTime - Date.now()) / 1000;
         let minutes = Math.floor(timeLeft / 60);
         let seconds = Math.floor(timeLeft - minutes * 60);
@@ -40,7 +39,7 @@ $(() => {
 
       const completeTime = Date.now() + data.waitTime * 60 * 1000;
 
-      const intervalId = setInterval(function () {
+      intervalId = setInterval(function() {
         makeTimer(completeTime);
       }, 1000);
 
@@ -91,9 +90,10 @@ $(() => {
       $(body).prepend($toast);
       $(".toast.cancelled-toast").toast("show");
     }
+
     if (data.status === "completed") {
-      console.log("in completed");
-      $("#cart_header").html("Your order is completed.");
+      clearInterval(intervalId);
+      $("#cart_header").html("Your order is completed, Enjoy!");
       $("#submit_order")
         .html("Order Completed.")
         .addClass("btn btn-info text-white");
