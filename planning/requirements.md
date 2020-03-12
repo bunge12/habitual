@@ -6,12 +6,13 @@
 - Seeing current/pending orders
 
 ## Stretch
-- Login & register
-- Have Notifications (browser, email)
+- Have Notifications (browser)
 - Timer with countdown (Ready in  ... mins / Ready at 2:15PM)
 - Dummy pay page
-- Order feedback
-- Order history for customers
+- Order history for customers (popup - easy, 4th col - stretch)
+
+## Super Stretch
+- Login & register
 
 ## Description from Compass
  - A food ordering experience for a single restaurant. 
