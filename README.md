@@ -1,5 +1,4 @@
-Habitual
-=========
+# Habitual
 
 Habitual is a full stack web application built with Node and Express that allows for customers to order items from the menu and for restaurants to manage orders. **BEWARE**: This app was published for learning purposes and it is not intended for use in production-grade software without a proper code review.
 
@@ -35,3 +34,10 @@ This project was created and published by me, [shuchitama](https://github.com/sh
 - PG
 - Socket.io
 - Twilio
+
+## Getting Started
+
+1. Fork this repository, then clone your fork of this repository.
+2. Install dependencies using the `npm install` command.
+3. Start the web server using the `npm run local` command. The app will be served at http://localhost:8080/.
+4. Go to http://localhost:8080/ in your browser.
