@@ -3,11 +3,11 @@ INSERT INTO items
   (name, description, price, picture_url)
 VALUES
   ('Corona', 'Virus sold separately', 299, 'https://images.pexels.com/photos/2286972/pexels-photo-2286972.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260'),
-  ('Orange Juice', 'Gain weight back that you lost from drinking water.', 299, 'https://previews.123rf.com/images/photomaru/photomaru1011/photomaru101100054/8297195-orange-juice-and-slices-of-orange-isolated-on-white.jpg'),
+  ('Orange Juice', 'Gain weight back that you lost from drinking water.', 299, 'http://purejuice.bar/wp-content/uploads/2014/12/Orange_Juice_Recipes_Copyright_2012.jpg'),
   ('Iced Tea', 'Tea, now with ice!', 99, 'https://images.pexels.com/photos/792613/pexels-photo-792613.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
   ('Soft drink', 'Coca-cola', 149, 'https://images.pexels.com/photos/2983100/pexels-photo-2983100.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
   ('Mini Martini', 'Tequila, Triple Sec & fresh lime juice with a salted rim', 859, 'https://images.pexels.com/photos/3407782/pexels-photo-3407782.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'),
-  ('Caesar', 'Vodka, clamato juice and veggie garnishes', 659, 'https://lh3.googleusercontent.com/proxy/dTJerJxDnh5egV8ujY4g60UxObL-t6_d58zrYStkYN44oSilT6dV1GWA5cdZ0fVbAGCKqTo0mFf3bEhyEl8mg1npPuXYXgZ2hwcg3nXVt5G6NihQBY5hgQ'),
+  ('Caesar', 'Vodka, clamato juice and veggie garnishes', 659, 'http://farm8.staticflickr.com/7009/6728179245_eae47b8740.jpg'),
   ('Moscow Mule', 'Vodka and Ginger beer Cocktail, served in a copper mug', 699, 'https://i3.wp.com/www.catdumb.com/wp-content/uploads/2019/06/9-7.png'),
   ('White Claw', 'Ain''t no laws when you''re drinking claws -- no, actually, yes there are', 305, 'https://lookingglass.services/wp-content/uploads/2019/06/White-Claw-has-virtual-reality-surfing-experience.png'),
   ('Mojito', 'White run, sugar cane juice, lime juice, soda water and mint', 699, 'https://www.sustainablecooks.com/wp-content/uploads/2018/06/Classic-Virgin-Mojito-Recipe-2.jpg'),
